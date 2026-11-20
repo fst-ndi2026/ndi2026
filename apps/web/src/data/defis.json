@@ -1,0 +1,26 @@
+[
+  {
+    "id": "accessibilite",
+    "titre": "Accessibilité (exemple)",
+    "exigences": [
+      { "texte": "Navigation complète au clavier, focus visible", "preuve": "Tab sur toutes les pages ; :focus-visible dans tokens.css", "fait": true },
+      { "texte": "Contrastes AA, champs étiquetés, langue déclarée", "preuve": "Palette vérifiée ; <label> sur chaque champ ; <html lang>", "fait": true }
+    ]
+  },
+  {
+    "id": "sobriete",
+    "titre": "Éco-conception (exemple)",
+    "exigences": [
+      { "texte": "Page légère, polices système, aucune lecture automatique", "preuve": "Poids affiché dans le pied de page", "fait": true }
+    ]
+  },
+  {
+    "id": "securite",
+    "titre": "Sécurité (exemple)",
+    "exigences": [
+      { "texte": "Aucun secret dans le dépôt", "preuve": ".env ignoré ; .env.example vide", "fait": true },
+      { "texte": "Validation serveur et requêtes SQL paramétrées", "preuve": "zod sur chaque route ; pool.query(..., [$1])", "fait": true },
+      { "texte": "En-têtes de sécurité et limitation de débit", "preuve": "helmet + express-rate-limit, testés", "fait": true }
+    ]
+  }
+]
