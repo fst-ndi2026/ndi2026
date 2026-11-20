@@ -63,6 +63,16 @@ describe("Déclencheurs du jeu caché", () => {
 });
 
 describe("Borne", () => {
+  it("les flèches pilotent le serpent après JOUER (le focus reste dans la borne)", async () => {
+    ui();
+    type("snake");
+    const d = await screen.findByRole("dialog", { name: "FST SNAKE" });
+    fireEvent.click(screen.getByRole("button", { name: "JOUER" }));
+    expect(document.activeElement).toBe(d);
+    fireEvent.keyDown(document.body, { key: "ArrowDown" });
+    fireEvent.keyDown(document.body, { key: " " });
+    expect(await screen.findByText("PAUSE", { selector: "p" })).toBeTruthy();
+  });
   it("joue, met en pause, et active le mode 8-bit mémorisé", async () => {
     ui();
     type("snake");

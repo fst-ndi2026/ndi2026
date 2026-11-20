@@ -98,10 +98,10 @@ export default function Arcade({ onClose }: { onClose: () => void }) {
 
   useEffect(() => { if (phase !== "escape") dialog.current?.querySelector<HTMLElement>("[data-focus]")?.focus(); }, [phase]);
 
-  const start = () => { g.current = newGame(W, H); setSay(""); setPhase("play"); };
+  const start = () => { g.current = newGame(W, H); setSay(""); setPhase("play"); dialog.current?.focus(); };
   const close = () => { setPhase("pause"); onClose(); };
 
-  function onKey(e: React.KeyboardEvent) {
+  function onKey(e: KeyboardEvent) {
     if (phase === "escape") return;
     const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
     if (e.key === "Escape") { e.preventDefault(); close(); return; }
@@ -117,6 +117,15 @@ export default function Arcade({ onClose }: { onClose: () => void }) {
       else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
     }
   }
+
+  // Clavier écouté sur toute la page tant que la borne est ouverte (le bouton JOUER disparaît au démarrage).
+  const keyRef = useRef(onKey);
+  keyRef.current = onKey;
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => keyRef.current(e);
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, []);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -135,7 +144,7 @@ export default function Arcade({ onClose }: { onClose: () => void }) {
   return (
     <>
       <div className="arc-backdrop" data-arcade hidden={phase === "escape"}>
-        <section ref={dialog} className="arc" role="dialog" aria-modal="true" aria-labelledby="arc-titre" onKeyDown={onKey}>
+        <section ref={dialog} className="arc" role="dialog" aria-modal="true" aria-labelledby="arc-titre" tabIndex={-1}>
           <div className="arc-head">
             <h2 id="arc-titre">FST SNAKE</h2>
             <button type="button" className="arc-x" aria-label={fr ? "Quitter le jeu" : "الخروج من اللعبة"} onClick={close}>×</button>
@@ -161,7 +170,7 @@ export default function Arcade({ onClose }: { onClose: () => void }) {
             )}
             {phase === "pause" && (
               <div className="arc-overlay"><p className="arc-big">PAUSE</p>
-                <button type="button" data-focus className="arc-btn arc-primary" onClick={() => setPhase("play")}>{fr ? "REPRENDRE" : "متابعة"}</button></div>
+                <button type="button" data-focus className="arc-btn arc-primary" onClick={() => { setPhase("play"); dialog.current?.focus(); }}>{fr ? "REPRENDRE" : "متابعة"}</button></div>
             )}
             {phase === "over" && (
               <div className="arc-overlay arc-over">
@@ -193,7 +202,7 @@ export default function Arcade({ onClose }: { onClose: () => void }) {
             </div>
             <div className="arc-opts">
               <button type="button" className="arc-btn" aria-pressed={phase === "pause"} disabled={phase !== "play" && phase !== "pause"}
-                onClick={() => setPhase(phase === "play" ? "pause" : "play")}>PAUSE</button>
+                onClick={() => { setPhase(phase === "play" ? "pause" : "play"); dialog.current?.focus(); }}>PAUSE</button>
               <button type="button" className="arc-btn" aria-pressed={sfx} onClick={() => setSfx(!sfx)}>{fr ? "SON" : "الصوت"}</button>
               <button type="button" className="arc-btn" aria-pressed={audioMode} onClick={() => setAudioMode(!audioMode)}>🎧 {fr ? "MODE SONORE" : "وضع صوتي"}</button>
               <button type="button" className="arc-btn" aria-pressed={retro} onClick={() => { setRetro(!retro); setRetroState(!retro); }}>{fr ? "SITE 8-BIT" : "الموقع 8-bit"}</button>
