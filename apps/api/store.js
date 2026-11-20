@@ -22,6 +22,11 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+CREATE TABLE IF NOT EXISTS questions_sans_reponse (
+  id SERIAL PRIMARY KEY,
+  question VARCHAR(300) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 INSERT INTO items (title, body)
   SELECT * FROM (VALUES ('Bienvenue', 'Premier élément de démonstration'), ('Nuit de l''Info 2026', 'Template de l''équipe FST')) AS v(title, body)
   WHERE NOT EXISTS (SELECT 1 FROM items);
@@ -39,6 +44,9 @@ const memory = [
 ];
 
 const memoryUsers = [];
+const memoryUnanswered = [];
+// Retire adresses e-mail et numéros avant de garder une question.
+const scrub = (q) => q.replace(/[^\s@]+@[^\s@]+/g, "[e-mail]").replace(/\+?\d[\d\s.-]{6,}\d/g, "[numéro]").slice(0, 300);
 
 export const store = {
   mode: pool ? "postgres" : "memory",
@@ -63,6 +71,16 @@ export const store = {
       [title, body]
     );
     return rows[0];
+  },
+  async logUnanswered(question) {
+    const q = scrub(question);
+    if (!pool) { memoryUnanswered.push(q); return; }
+    await (await db()).query("INSERT INTO questions_sans_reponse (question) VALUES ($1)", [q]);
+  },
+  async countUnanswered() {
+    if (!pool) return memoryUnanswered.length;
+    const { rows } = await (await db()).query("SELECT count(*)::int AS n FROM questions_sans_reponse");
+    return rows[0].n;
   },
   async findUserByEmail(email) {
     if (!pool) return memoryUsers.find((u) => u.email === email) ?? null;

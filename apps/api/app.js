@@ -8,7 +8,8 @@ import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { z } from "zod";
 import { store } from "./store.js";
-import { ask } from "./ai.js";
+import { ask, aiConfigured, kbSize } from "./ai.js";
+import { PERSONA_IDS } from "../../shared/rafiq/personas.js";
 import { estimatePassword } from "../../shared/password.js";
 
 const app = express();
@@ -21,7 +22,7 @@ app.use("/api", rateLimit({ windowMs: 60_000, limit: 120 }));
 
 app.get("/api/health", async (_req, res) => {
   const db = await store.ping().then(() => "ok", () => "error");
-  res.status(db === "ok" ? 200 : 503).json({ ok: db === "ok", store: store.mode, db });
+  res.status(db === "ok" ? 200 : 503).json({ ok: db === "ok", store: store.mode, db, ai: aiConfigured() });
 });
 
 app.get("/api/items", async (_req, res, next) => {
@@ -70,11 +71,22 @@ app.post("/api/register", rateLimit({ windowMs: 60_000, limit: 10 }), async (req
   }
 });
 
-const askSchema = z.object({ question: z.string().trim().min(1).max(500) });
-app.post("/api/ask", async (req, res) => {
+// Rafiq : question + personnalité ; les questions sans réponse sont gardées (sans identité) pour enrichir les fiches.
+const askSchema = z.object({
+  question: z.string().trim().min(1).max(500),
+  persona: z.enum(PERSONA_IDS).default("serieux"),
+});
+app.post("/api/ask", rateLimit({ windowMs: 60_000, limit: 20 }), async (req, res, next) => {
   const parsed = askSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "invalid_input" });
-  res.json(await ask(parsed.data.question));
+  try {
+    const out = await ask(parsed.data.question, parsed.data.persona);
+    if (!out.found) await store.logUnanswered(parsed.data.question).catch(() => {});
+    res.json(out);
+  } catch (e) { next(e); }
+});
+app.get("/api/rafiq/stats", async (_req, res, next) => {
+  try { res.json({ fiches: kbSize(), sansReponse: await store.countUnanswered(), ai: aiConfigured() }); } catch (e) { next(e); }
 });
 
 app.use("/api", (_req, res) => res.status(404).json({ error: "not_found" }));

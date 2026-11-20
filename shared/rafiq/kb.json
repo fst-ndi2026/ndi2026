@@ -1,0 +1,158 @@
+[
+  {
+    "id": "sujet",
+    "url": "/",
+    "titre": {
+      "fr": "Le sujet de l'application",
+      "ar": "موضوع التطبيق"
+    },
+    "texte": {
+      "fr": "Cette application est le template de l'équipe FST de l'Université de Nouakchott pour la Nuit de l'Info 2026. Le sujet national est dévoilé le soir de l'événement ; cette fiche sera alors remplacée par sa présentation.",
+      "ar": "هذا التطبيق هو قالب فريق FST بجامعة نواكشوط لليلة المعلوميات 2026. يُكشف الموضوع الوطني مساء الحدث، وستُستبدل هذه البطاقة حينها بتقديمه."
+    },
+    "mots": "sujet theme application projet nuit info 2026 quoi موضوع تطبيق مشروع"
+  },
+  {
+    "id": "equipe",
+    "url": "/credits",
+    "titre": {
+      "fr": "L'équipe FST",
+      "ar": "فريق FST"
+    },
+    "texte": {
+      "fr": "L'équipe vient de la Faculté des Sciences et Techniques (FST) de l'Université de Nouakchott, en Mauritanie. Elle participe à la Nuit de l'Info depuis le site de la FST.",
+      "ar": "الفريق من كلية العلوم والتقنيات (FST) بجامعة نواكشوط في موريتانيا، ويشارك في ليلة المعلوميات من موقع الكلية."
+    },
+    "mots": "equipe qui membres fst universite nouakchott mauritanie فريق من نحن جامعة نواكشوط موريتانيا etudiants auteurs creee طلاب صنع"
+  },
+  {
+    "id": "inscription",
+    "url": "/inscription",
+    "titre": {
+      "fr": "S'inscrire",
+      "ar": "التسجيل"
+    },
+    "texte": {
+      "fr": "Pour créer un compte, ouvrez la page Inscription : nom, adresse e-mail, mot de passe et acceptation de la charte. Le mot de passe doit être assez robuste ; une phrase de plusieurs mots est le plus sûr.",
+      "ar": "لإنشاء حساب افتح صفحة التسجيل: الاسم والبريد الإلكتروني وكلمة المرور والموافقة على الميثاق. يجب أن تكون كلمة المرور قوية بما يكفي، والعبارة المكوّنة من عدة كلمات هي الأكثر أماناً."
+    },
+    "mots": "inscrire inscription compte creer rejoindre formulaire تسجيل حساب انضمام استمارة inscrit inscris enregistrer اسجل سجل يسجل اشترك"
+  },
+  {
+    "id": "mot-de-passe",
+    "url": "/securite",
+    "titre": {
+      "fr": "Mots de passe et fuites",
+      "ar": "كلمات المرور والتسريبات"
+    },
+    "texte": {
+      "fr": "Le mot de passe ne quitte jamais votre navigateur en clair. Pour vérifier les fuites, le navigateur calcule une empreinte SHA-1 et n'envoie que ses 5 premiers caractères à Pwned Passwords ; la comparaison se fait sur votre appareil. Sur le serveur, il est haché avec scrypt et un sel aléatoire.",
+      "ar": "لا تغادر كلمة المرور متصفحك أبداً بشكل مقروء. للتحقق من التسريبات يحسب المتصفح بصمة SHA-1 ولا يرسل إلا أول 5 أحرف منها إلى Pwned Passwords، والمقارنة تتم على جهازك. وعلى الخادم تُحفظ مجزّأة بخوارزمية scrypt مع ملح عشوائي."
+    },
+    "mots": "mot passe password envoye fuite pwned hache securise كلمة مرور السر تسريب ترسل passwd mdp"
+  },
+  {
+    "id": "securite",
+    "url": "/securite",
+    "titre": {
+      "fr": "Sécurité du site",
+      "ar": "أمان الموقع"
+    },
+    "texte": {
+      "fr": "Le site obtient A+ sur MDN HTTP Observatory : politique de contenu stricte, HTTPS forcé, protection contre le clickjacking, aucun cookie ni traceur. La page Sécurité détaille les dix risques OWASP Top 10:2025 et le badge bouclier vérifie les protections en direct.",
+      "ar": "يحصل الموقع على A+ في فحص MDN HTTP Observatory: سياسة محتوى صارمة، وHTTPS إجباري، وحماية من clickjacking، ولا cookies ولا متتبّعات. تشرح صفحة الأمان المخاطر العشرة لـ OWASP 2025، وشارة الدرع تتحقق من الحمايات مباشرة."
+    },
+    "mots": "securite securise protege attaque owasp csp https faille pirate أمان امن آمن حماية اختراق ثغرة piratage danger risque آمن امان خطر"
+  },
+  {
+    "id": "faille",
+    "url": "/securite",
+    "titre": {
+      "fr": "Signaler une faille",
+      "ar": "الإبلاغ عن ثغرة"
+    },
+    "texte": {
+      "fr": "Une faille se signale en privé sur le dépôt GitHub (signalement privé de vulnérabilité). Le fichier /.well-known/security.txt donne ce contact.",
+      "ar": "يُبلَّغ عن الثغرة بشكل سري عبر مستودع GitHub (الإبلاغ الخاص عن الثغرات)، والملف /.well-known/security.txt يعطي هذا العنوان."
+    },
+    "mots": "signaler faille vulnerabilite bug contact security txt إبلاغ ثغرة خلل"
+  },
+  {
+    "id": "accessibilite",
+    "url": "/accessibilite",
+    "titre": {
+      "fr": "Accessibilité",
+      "ar": "سهولة الوصول"
+    },
+    "texte": {
+      "fr": "Le bouton rond en bas à droite ouvre les paramètres d'affichage : taille du texte, police lisible pour la dyslexie, thèmes clair, sombre, contraste élevé et sépia, espacement et arrêt des animations. Le site se parcourt entièrement au clavier et est testé automatiquement avec axe-core.",
+      "ar": "الزر الدائري أسفل يمين الشاشة يفتح إعدادات العرض: حجم النص، وخط مقروء لعسر القراءة، وسمات فاتحة وداكنة وعالية التباين وبنية، والتباعد وإيقاف الحركة. يمكن تصفّح الموقع كاملاً بلوحة المفاتيح، ويُختبر آلياً بـ axe-core."
+    },
+    "mots": "accessibilite handicap malvoyant dyslexie taille texte contraste clavier lecteur ecran سهولة وصول إعاقة حجم الخط تباين عسر القراءة aveugle sourd malentendant كفيف"
+  },
+  {
+    "id": "sobriete",
+    "url": "/sobriete",
+    "titre": {
+      "fr": "Sobriété numérique",
+      "ar": "الاقتصاد الرقمي"
+    },
+    "texte": {
+      "fr": "Le site mesure sa propre empreinte avec une estimation inspirée d'EcoIndex, affichée en bas de page. Il utilise les polices du système, des images WebP chargées à la demande, un cache long et un budget de poids vérifié à chaque intégration. Le mode sobre affiche les médias seulement sur demande.",
+      "ar": "يقيس الموقع بصمته بنفسه بتقدير مستوحى من EcoIndex يظهر أسفل الصفحة. يستعمل خطوط النظام وصور WebP تُحمَّل عند الحاجة وتخزيناً مؤقتاً طويلاً وميزانية حجم تُفحص في كل دمج. والوضع المقتصد لا يعرض الوسائط إلا عند الطلب."
+    },
+    "mots": "ecologie environnement sobre leger poids ecoindex carbone energie vert بيئة صديق للبيئة اقتصاد مقتصد خفيف طاقة كربون ecologique planete green"
+  },
+  {
+    "id": "donnees",
+    "url": "/securite",
+    "titre": {
+      "fr": "Données personnelles",
+      "ar": "البيانات الشخصية"
+    },
+    "texte": {
+      "fr": "Le site ne dépose aucun cookie et n'utilise aucun traceur. Seules les données nécessaires à l'inscription sont demandées, et le mot de passe n'est jamais stocké en clair. Les données sont conservées dans une base PostgreSQL (Neon).",
+      "ar": "لا يضع الموقع أي cookie ولا يستعمل أي متتبّع. لا يطلب إلا البيانات اللازمة للتسجيل، ولا تُحفظ كلمة المرور أبداً بشكل مقروء. تُحفظ البيانات في قاعدة PostgreSQL على Neon."
+    },
+    "mots": "donnees personnelles rgpd vie privee cookie traceur stocke base بيانات شخصية خصوصية تتبع"
+  },
+  {
+    "id": "rafiq",
+    "url": "/assistant",
+    "titre": {
+      "fr": "Qui est Rafiq ?",
+      "ar": "من هو رفيق؟"
+    },
+    "texte": {
+      "fr": "Rafiq est l'assistant IA du site. Il répond uniquement à partir des fiches du site et cite la page source. Il essaie trois cerveaux dans l'ordre : Claude en ligne si la clé est configurée, Gemini Nano dans Chrome sur votre appareil, puis une recherche hors ligne qui marche toujours.",
+      "ar": "رفيق هو مساعد الموقع بالذكاء الاصطناعي. يجيب فقط من بطاقات الموقع ويذكر الصفحة المصدر. يجرّب ثلاثة عقول بالترتيب: Claude عبر الإنترنت إن كان المفتاح مضبوطاً، ثم Gemini Nano داخل Chrome على جهازك، ثم بحثاً بلا إنترنت يعمل دائماً."
+    },
+    "mots": "rafiq assistant chatbot ia intelligence artificielle robot comment fonctionne qui es tu رفيق مساعد ذكاء اصطناعي روبوت كيف تعمل من انت etes toi vous assistant bot انت هو"
+  },
+  {
+    "id": "defis",
+    "url": "/defis",
+    "titre": {
+      "fr": "Les défis relevés",
+      "ar": "التحديات"
+    },
+    "texte": {
+      "fr": "La page Défis liste chaque défi relevé avec ses exigences et la preuve de ce qui est fait : accessibilité, éco-conception, sécurité, assistant IA. Une équipe peut relever jusqu'à 5 défis en plus du sujet national.",
+      "ar": "تعرض صفحة التحديات كل تحدٍّ مع متطلباته ودليل ما أُنجز: سهولة الوصول، والتصميم البيئي، والأمان، والمساعد الذكي. يمكن للفريق رفع 5 تحديات إضافة إلى الموضوع الوطني."
+    },
+    "mots": "defis defi challenge jury exigences preuve تحدي تحديات لجنة"
+  },
+  {
+    "id": "langues",
+    "url": "/",
+    "titre": {
+      "fr": "Langues",
+      "ar": "اللغات"
+    },
+    "texte": {
+      "fr": "Le site est disponible en français et en arabe ; le bouton en haut change la langue et l'affichage passe de droite à gauche. Rafiq répond dans la langue de la question.",
+      "ar": "الموقع متاح بالفرنسية والعربية، والزر في الأعلى يغيّر اللغة فتنقلب الواجهة من اليمين إلى اليسار. ويجيب رفيق بلغة السؤال."
+    },
+    "mots": "langue arabe francais traduction changer لغة عربية فرنسية ترجمة"
+  }
+]

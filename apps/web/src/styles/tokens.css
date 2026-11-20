@@ -151,3 +151,47 @@ html.sobre *, html.sobre *::before, html.sobre *::after { animation: none !impor
 .pw-how summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
 .pw-hash { word-break: break-all; }
 .pw-hash mark { background: var(--accent); color: var(--bg); padding: 0 2px; border-radius: 3px; }
+
+/* Rafiq : bouton flottant, fenêtre, conversation */
+.rq-fab { position: fixed; inset-inline-end: 20px; bottom: 88px; z-index: 50; min-height: 52px; padding: 0 18px; border-radius: 26px; border: 3px solid #fff; background: #f59e0b; color: #0f172a; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
+.rq-fab[aria-expanded="true"] { background: #fbbf24; }
+.rq-panel { position: fixed; inset-inline-end: 20px; bottom: 152px; z-index: 60; width: min(400px, calc(100vw - 40px)); max-height: min(640px, calc(100vh - 172px)); display: flex; flex-direction: column; background: #fff; color: #13233A; border-radius: 18px; box-shadow: 0 16px 40px rgba(0,0,0,.4); overflow: hidden; font-family: system-ui, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.45; letter-spacing: normal; }
+.rq-panel :focus-visible, .rq-page :focus-visible { outline: 3px solid #1E3A8A; outline-offset: 2px; }
+.rq-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 16px; background: #0f172a; color: #f8fafc; }
+.rq-head h2 { margin: 0; font-size: 17px; } .rq-head p { margin: 0; font-size: 12px; color: #cbd5e1; }
+.rq-head button { width: 44px; height: 44px; border-radius: 10px; border: 1px solid #475569; background: transparent; color: #f8fafc; font-size: 22px; padding: 0; }
+.rq-page { background: #fff; color: #13233A; border-radius: 18px; overflow: hidden; max-width: 720px; font-size: 16px; }
+.rq-body { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.rq-notice { margin: 0; padding: 8px 16px; background: #FEF3C7; color: #713F12; font-size: 13px; }
+.rq-personas { display: flex; gap: 4px; margin: 10px 16px 0; padding: 4px; border-radius: 10px; background: #F1F5F9; }
+.rq-personas button { flex: 1; min-height: 40px; border-radius: 8px; border: 0; background: transparent; color: #13233A; font-weight: 600; font-size: 14px; padding: 0 6px; }
+.rq-personas button[aria-checked="true"] { background: #13233A; color: #fff; }
+.rq-log { flex: 1; min-height: 160px; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; background: #F8FAFC; }
+.rq-page .rq-log { min-height: 280px; max-height: 480px; }
+.rq-msg { margin: 0; max-width: 88%; padding: 10px 12px; border-radius: 14px; }
+.rq-msg p { margin: 0; }
+.rq-bot { align-self: flex-start; background: #fff; border: 1px solid #E2E8F0; border-start-start-radius: 4px; }
+.rq-user { align-self: flex-end; background: #13233A; color: #fff; border-start-end-radius: 4px; }
+.rq-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; font-size: 12px; color: #475569; }
+.rq-src { display: inline-flex; align-items: center; min-height: 32px; padding: 0 10px; border-radius: 16px; background: #EFF6FF; color: #1D4ED8 !important; text-decoration: none; font-weight: 600; font-size: 13px; }
+.rq-suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 0; }
+.rq-suggest button { min-height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #CBD5E1; background: #fff; color: #13233A; font-size: 13px; font-weight: 500; }
+.rq-form { display: flex; gap: 8px; padding: 10px 16px; }
+.rq-form input { flex: 1; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 2px solid #13233A; background: #fff; color: #13233A; font: inherit; }
+.rq-form button { width: 48px; height: 48px; border-radius: 10px; border: 0; background: #f59e0b; color: #0f172a; display: flex; align-items: center; justify-content: center; padding: 0; }
+.rq-form button:disabled { opacity: .55; }
+[dir="rtl"] .rq-send { transform: scaleX(-1); }
+.rq-link { align-self: flex-start; margin: 0 16px 12px; min-height: 44px; padding: 0 4px; background: none; border: 0; color: #1D4ED8; text-decoration: underline; font-size: 14px; font-weight: 600; }
+.rq-how { padding-top: 6px; overflow-y: auto; }
+.rq-how > h3, .rq-how > p { margin: 0 16px 10px; } .rq-how > h3 { font-size: 17px; }
+.rq-brains { list-style: none; margin: 0 16px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.rq-brains li { display: flex; gap: 10px; align-items: flex-start; padding: 10px; border-radius: 12px; background: #F8FAFC; }
+.rq-brains p { margin: 2px 0 0; font-size: 13px; color: #475569; }
+.rq-brains div { flex: 1; }
+.rq-num { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #13233A; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
+.rq-state { flex: none; font-size: 13px; } .rq-state.ok { color: #15803D; } .rq-state.muted { color: #475569; }
+.rq-stats { margin: 12px 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; }
+.rq-stats div { background: #F1F5F9; border-radius: 10px; padding: 8px 4px; } .rq-stats dt { font-size: 12px; color: #475569; } .rq-stats dd { margin: 0; font-size: 18px; font-weight: 800; }
+.rq-rules { margin: 0 16px 14px; padding-inline-start: 18px; font-size: 13px; color: #334155; }
+@media (prefers-reduced-motion: no-preference) { .rq-panel { animation: rq-in .15s ease-out; } @keyframes rq-in { from { opacity: 0; transform: translateY(8px); } } }
+html.calm .rq-panel { animation: none; }

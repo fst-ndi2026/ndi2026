@@ -111,5 +111,46 @@
         "fait": true
       }
     ]
+  },
+  {
+    "id": "assistant",
+    "titre": "Assistant IA Rafiq (exemple)",
+    "exigences": [
+      {
+        "texte": "Répond aux questions sur le site, en français et en arabe",
+        "preuve": "Fiches dans shared/rafiq/kb.json ; recherche BM25 avec normalisation de l'arabe",
+        "fait": true
+      },
+      {
+        "texte": "Fonctionne sans configuration complexe et se réutilise",
+        "preuve": "Deux fichiers à changer : kb.json (connaissances) et personas.js (ton)",
+        "fait": true
+      },
+      {
+        "texte": "Toujours une réponse, même sans clé ni réseau",
+        "preuve": "Cascade : Claude (serveur) → Gemini Nano (Chrome) → recherche hors ligne",
+        "fait": true
+      },
+      {
+        "texte": "Réponses sourcées et limitées au contenu du site",
+        "preuve": "Chaque réponse cite sa fiche avec un lien ; consigne anti-injection testée",
+        "fait": true
+      },
+      {
+        "texte": "Transparence IA (AI Act, article 50)",
+        "preuve": "Bandeau « Vous échangez avec une IA » et étiquette du cerveau sur chaque réponse",
+        "fait": true
+      },
+      {
+        "texte": "Personnalités, dont Chat'bruti",
+        "preuve": "Sérieux, Prof, Chat'bruti : même savoir, ton différent",
+        "fait": true
+      },
+      {
+        "texte": "S'améliore avec l'usage",
+        "preuve": "Questions sans réponse gardées dans PostgreSQL, e-mails et numéros retirés",
+        "fait": true
+      }
+    ]
   }
 ]

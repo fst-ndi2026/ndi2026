@@ -4,6 +4,7 @@ import { useKonami } from "../lib/useKonami";
 import EcoBadge from "./EcoBadge";
 import SecurityBadge from "./SecurityBadge";
 import A11yPanel from "./A11yPanel";
+import Rafiq from "./Rafiq";
 import RouteAnnouncer from "./RouteAnnouncer";
 
 export default function Layout() {
@@ -36,6 +37,7 @@ export default function Layout() {
         )}
         <Outlet />
       </main>
+      <Rafiq />
       <A11yPanel />
       <footer>
         <div className="footer-row"><div className="footer-badges"><EcoBadge /><SecurityBadge /></div><p>Équipe FST - Université de Nouakchott · Licence MIT · aucun traceur · <NavLink to="/sobriete">Sobriété</NavLink> · <NavLink to="/securite">Sécurité</NavLink></p></div>
