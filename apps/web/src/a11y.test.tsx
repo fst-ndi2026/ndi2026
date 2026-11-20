@@ -33,7 +33,7 @@ function app(path: string) {
 
 beforeEach(() => {
   vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => [{ id: 1, title: "Exemple", body: "" }] }));
-  document.documentElement.className = "";
+  document.documentElement.className = ""; localStorage.clear(); delete document.documentElement.dataset.theme;
   document.documentElement.style.fontSize = "";
 });
 
@@ -49,15 +49,31 @@ describe("Accessibilité (axe-core)", () => {
   }
 });
 
-describe("Outils d'accessibilité", () => {
-  it("agrandit le texte et active le contraste élevé", async () => {
+describe("Panneau Paramètres d'affichage", () => {
+  it("s'ouvre, applique un profil et se referme avec Échap", async () => {
     app("/");
-    fireEvent.click(screen.getByRole("button", { name: "Agrandir le texte" }));
-    await waitFor(() => expect(document.documentElement.style.fontSize).toBe("125%"));
-    const c = screen.getByRole("button", { name: "Contraste élevé" });
-    fireEvent.click(c);
-    expect(c.getAttribute("aria-pressed")).toBe("true");
-    expect(document.documentElement.classList.contains("hc")).toBe(true);
+    const fab = screen.getByRole("button", { name: "Paramètres d'affichage" });
+    fireEvent.click(fab);
+    expect(fab.getAttribute("aria-expanded")).toBe("true");
+    const dialog = screen.getByRole("dialog", { name: "Paramètres d'affichage" });
+    const res = await axe.run(dialog, { rules: { "color-contrast": { enabled: false } } });
+    expect(res.violations.map((v) => v.id)).toEqual([]);
+    fireEvent.click(screen.getByRole("button", { name: /Malvoyance/ }));
+    await waitFor(() => expect(document.documentElement.style.fontSize).toBe("150%"));
+    expect(document.documentElement.dataset.theme).toBe("contraste");
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(document.activeElement).toBe(fab);
+  });
+  it("règle la taille, la police et réinitialise", async () => {
+    app("/");
+    fireEvent.click(screen.getByRole("button", { name: "Paramètres d'affichage" }));
+    fireEvent.change(screen.getByLabelText("Taille du texte"), { target: { value: "200" } });
+    await waitFor(() => expect(document.documentElement.style.fontSize).toBe("200%"));
+    fireEvent.click(screen.getByRole("button", { name: "Lisible" }));
+    expect(document.documentElement.classList.contains("font-lisible")).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Réinitialiser" }));
+    await waitFor(() => expect(document.documentElement.style.fontSize).toBe("100%"));
   });
   it("met à jour le titre de la page", async () => {
     app("/defis");

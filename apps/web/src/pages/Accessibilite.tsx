@@ -6,9 +6,10 @@ const criteres = [
   { theme: "Structure", texte: "Langue de la page déclarée (fr / ar avec sens d'écriture), un seul titre h1 par page, repères header / nav / main / footer.", ok: true },
   { theme: "Titres de page", texte: "Chaque page a un titre unique, mis à jour à chaque navigation, et annoncé aux lecteurs d'écran.", ok: true },
   { theme: "Formulaires", texte: "Chaque champ a une étiquette liée ; les erreurs et confirmations sont annoncées (aria-live, role=alert).", ok: true },
-  { theme: "Couleurs", texte: "Contrastes conformes au niveau AA ; mode « contraste élevé » ; l'information n'est jamais portée par la couleur seule.", ok: true },
-  { theme: "Texte", texte: "Agrandissement du texte jusqu'à 200 % sans perte de contenu (boutons A+ / A−).", ok: true },
-  { theme: "Animations", texte: "Les animations sont désactivées si l'utilisateur a choisi « réduire les animations ».", ok: true },
+  { theme: "Couleurs", texte: "Contrastes conformes au niveau AA ; thèmes clair, sombre, sépia et contraste élevé ; l'information n'est jamais portée par la couleur seule.", ok: true },
+  { theme: "Personnalisation", texte: "Panneau « Paramètres d'affichage » : profils Malvoyance, Dyslexie et Concentration, police lisible, interlignage augmenté, réglages mémorisés sans compte.", ok: true },
+  { theme: "Texte", texte: "Agrandissement du texte jusqu'à 200 % sans perte de contenu (curseur « Taille du texte »).", ok: true },
+  { theme: "Animations", texte: "Les animations sont désactivées si le système le demande ou si l'utilisateur active « Arrêter les animations ».", ok: true },
   { theme: "Cibles tactiles", texte: "Boutons et liens d'au moins 44 × 44 pixels.", ok: true },
   { theme: "Tests", texte: "Audit automatique axe-core à chaque intégration continue, complété par des tests manuels au clavier.", ok: true },
 ];

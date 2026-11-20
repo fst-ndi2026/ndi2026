@@ -9,13 +9,13 @@
         "fait": true
       },
       {
-        "texte": "Contrastes AA et mode contraste élevé",
-        "preuve": "Palette vérifiée ; bouton « Contraste élevé » (aria-pressed)",
+        "texte": "Contrastes AA et thèmes adaptés",
+        "preuve": "Panneau « Paramètres d'affichage » : clair, sombre, sépia, contraste élevé",
         "fait": true
       },
       {
-        "texte": "Texte agrandissable jusqu'à 200 %",
-        "preuve": "Boutons A+ / A− ; mise en page fluide",
+        "texte": "Personnalisation selon les besoins (vue, lecture, concentration)",
+        "preuve": "Profils rapides, texte jusqu'à 200 %, police lisible, interlignage, arrêt des animations",
         "fait": true
       },
       {

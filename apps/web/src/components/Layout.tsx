@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useI18n } from "../lib/i18n";
 import { useKonami } from "../lib/useKonami";
 import PageWeight from "./PageWeight";
-import A11yToolbar from "./A11yToolbar";
+import A11yPanel from "./A11yPanel";
 import RouteAnnouncer from "./RouteAnnouncer";
 
 export default function Layout() {
@@ -24,7 +24,6 @@ export default function Layout() {
             <li><button type="button" onClick={toggle} lang={t("lang") === "العربية" ? "ar" : "fr"}>{t("lang")}</button></li>
           </ul>
         </nav>
-        <A11yToolbar />
       </header>
       <RouteAnnouncer />
       <main id="main" tabIndex={-1}>
@@ -36,6 +35,7 @@ export default function Layout() {
         )}
         <Outlet />
       </main>
+      <A11yPanel />
       <footer>
         <p>Équipe FST - Université de Nouakchott · Licence MIT · <PageWeight /></p>
       </footer>
