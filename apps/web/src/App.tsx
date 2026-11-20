@@ -8,6 +8,7 @@ import Credits from "./pages/Credits";
 import Accessibilite from "./pages/Accessibilite";
 import Sobriete from "./pages/Sobriete";
 import Securite from "./pages/Securite";
+import Agir from "./pages/Agir";
 import Inscription from "./pages/Inscription";
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="accessibilite" element={<Accessibilite />} />
           <Route path="sobriete" element={<Sobriete />} />
           <Route path="securite" element={<Securite />} />
+          <Route path="agir" element={<Agir />} />
           <Route path="inscription" element={<Inscription />} />
         </Route>
       </Routes>

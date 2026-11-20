@@ -33,6 +33,12 @@ CREATE TABLE IF NOT EXISTS arcade_scores (
   score INTEGER NOT NULL CHECK (score >= 0 AND score <= 100000),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+CREATE TABLE IF NOT EXISTS demandes (
+  id SERIAL PRIMARY KEY,
+  mission VARCHAR(20) NOT NULL,
+  data JSONB NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 INSERT INTO items (title, body)
   SELECT * FROM (VALUES ('Bienvenue', 'Premier élément de démonstration'), ('Nuit de l''Info 2026', 'Template de l''équipe FST')) AS v(title, body)
   WHERE NOT EXISTS (SELECT 1 FROM items);
@@ -52,6 +58,7 @@ const memory = [
 const memoryUsers = [];
 const memoryUnanswered = [];
 const memoryScores = [];
+const memoryDemandes = [];
 // Retire adresses e-mail et numéros avant de garder une question.
 const scrub = (q) => q.replace(/[^\s@]+@[^\s@]+/g, "[e-mail]").replace(/\+?\d[\d\s.-]{6,}\d/g, "[numéro]").slice(0, 300);
 
@@ -78,6 +85,17 @@ export const store = {
       [title, body]
     );
     return rows[0];
+  },
+  async addDemande(mission, data) {
+    const year = new Date().getFullYear();
+    if (!pool) {
+      memoryDemandes.push({ mission, data, year });
+      return { id: memoryDemandes.length, count: memoryDemandes.filter((d) => d.mission === mission && d.year === year).length };
+    }
+    const { rows } = await (await db()).query("INSERT INTO demandes (mission, data) VALUES ($1, $2) RETURNING id", [mission, data]);
+    const c = await (await db()).query(
+      "SELECT count(*)::int AS n FROM demandes WHERE mission = $1 AND date_part('year', created_at) = $2", [mission, year]);
+    return { id: rows[0].id, count: c.rows[0].n };
   },
   async topScores(limit = 10) {
     if (!pool) return [...memoryScores].sort((a, b) => b.score - a.score).slice(0, limit);

@@ -85,6 +85,30 @@ app.post("/api/ask", rateLimit({ windowMs: 60_000, limit: 20 }), async (req, res
     res.json(out);
   } catch (e) { next(e); }
 });
+// Formulaire augmenté : un schéma par mission, anti-spam invisible (pot de miel + délai minimum), débit limité.
+const base = { name: z.string().trim().min(2).max(100), email: z.string().trim().toLowerCase().email().max(254), website: z.string().max(0).optional(), elapsed: z.number().min(3000) };
+const demandeSchema = z.discriminatedUnion("mission", [
+  z.object({ mission: z.literal("contact"), ...base, message: z.string().trim().min(5).max(2000) }),
+  z.object({ mission: z.literal("don"), ...base, amount: z.number().min(1).max(10000), frequency: z.enum(["once", "monthly"]) }),
+  z.object({ mission: z.literal("benevole"), ...base, phone: z.string().trim().regex(/^\+?\d{8,15}$/).optional().or(z.literal("")),
+    skills: z.array(z.string().max(40)).min(1).max(5) }),
+  z.object({ mission: z.literal("info"), ...base, topic: z.string().trim().min(2).max(60) }),
+]);
+app.post("/api/demandes", rateLimit({ windowMs: 60_000, limit: 5 }), async (req, res, next) => {
+  const parsed = demandeSchema.safeParse(req.body);
+  if (!parsed.success) {
+    const fields = parsed.error.issues.map((i) => i.path[0]);
+    if (fields.includes("website") || fields.includes("elapsed")) return res.status(422).json({ error: "spam" });
+    return res.status(400).json({ error: "invalid_input", fields });
+  }
+  const { mission, website: _w, elapsed: _e, ...data } = parsed.data;
+  try {
+    const { id, count } = await store.addDemande(mission, data);
+    const year = new Date().getFullYear();
+    res.status(201).json({ ref: `FST-${year}-${String(id).padStart(4, "0")}`, count, year });
+  } catch (e) { next(e); }
+});
+
 // Jeu caché : meilleurs scores (3 lettres, aucune donnée personnelle).
 const scoreSchema = z.object({ name: z.string().regex(/^[A-Z]{3}$/), score: z.number().int().min(0).max(100000) });
 app.get("/api/scores", async (_req, res, next) => {

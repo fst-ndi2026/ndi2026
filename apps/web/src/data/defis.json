@@ -193,5 +193,46 @@
         "fait": true
       }
     ]
+  },
+  {
+    "id": "formulaire",
+    "titre": "Formulaire augmenté (exemple)",
+    "exigences": [
+      {
+        "texte": "Choix de la mission : contact, don, bénévolat, information",
+        "preuve": "Page /agir : quatre cartes, puis champs adaptés à chaque mission",
+        "fait": true
+      },
+      {
+        "texte": "Champs qui s'adaptent",
+        "preuve": "Don : montants et récurrence ; bénévolat : compétences et téléphone ; contact : message ; information : sujet",
+        "fait": true
+      },
+      {
+        "texte": "Année du cycle actuel",
+        "preuve": "« Ton soutien en [année] est crucial… », année calculée, aussi dans la référence et le badge",
+        "fait": true
+      },
+      {
+        "texte": "Anti-spam et validation",
+        "preuve": "Pot de miel invisible, délai minimum, 5 envois/minute, schéma zod par mission, HTTPS",
+        "fait": true
+      },
+      {
+        "texte": "Formulaire « augmenté » par l'IA",
+        "preuve": "« Dis-le en une phrase » : texte ou dictée FR/AR, Gemini Nano si présent sinon extracteur local, champs marqués ✨",
+        "fait": true
+      },
+      {
+        "texte": "Gamification (Formulaire de la Gloire, Oh les beaux boutons)",
+        "preuve": "Jauge de gloire en XP, badge débloqué selon la mission, appels à l'action clairs",
+        "fait": true
+      },
+      {
+        "texte": "Version Bad UI",
+        "preuve": "Interrupteur 😈 : e-mail lettre par lettre au curseur, téléphone en +1, bouton qui fuit, case à double négation",
+        "fait": true
+      }
+    ]
   }
 ]
