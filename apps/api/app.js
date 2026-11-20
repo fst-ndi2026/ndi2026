@@ -33,6 +33,19 @@ app.post("/api/items", async (req, res, next) => {
   try { res.status(201).json(await store.create(parsed.data)); } catch (e) { next(e); }
 });
 
+const scoreSchema = z.object({
+  village: z.string().trim().min(2).max(40).regex(/^[\p{L}\p{N} '’.-]+$/u),
+  points: z.number().int().min(0).max(10000),
+});
+app.get("/api/scores", async (_req, res, next) => {
+  try { res.set("cache-control", "no-store").json(await store.topScores(10)); } catch (e) { next(e); }
+});
+app.post("/api/scores", async (req, res, next) => {
+  const parsed = scoreSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: "invalid_input" });
+  try { res.status(201).json(await store.saveScore(parsed.data)); } catch (e) { next(e); }
+});
+
 const askSchema = z.object({ question: z.string().trim().min(1).max(500) });
 app.post("/api/ask", async (req, res) => {
   const parsed = askSchema.safeParse(req.body);

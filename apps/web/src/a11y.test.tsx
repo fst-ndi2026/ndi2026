@@ -3,9 +3,9 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import axe from "axe-core";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Demo from "./pages/Demo";
-import Assistant from "./pages/Assistant";
+import Carte from "./pages/Carte";
+import Quete from "./pages/Quete";
+import Podium from "./pages/Podium";
 import Defis from "./pages/Defis";
 import Credits from "./pages/Credits";
 import Accessibilite from "./pages/Accessibilite";
@@ -18,9 +18,9 @@ function app(path: string) {
       <MemoryRouter initialEntries={[path]}>
         <Routes>
           <Route element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="demo" element={<Demo />} />
-            <Route path="assistant" element={<Assistant />} />
+            <Route index element={<Carte />} />
+            <Route path="quete/:id" element={<Quete />} />
+            <Route path="podium" element={<Podium />} />
             <Route path="defis" element={<Defis />} />
             <Route path="credits" element={<Credits />} />
             <Route path="accessibilite" element={<Accessibilite />} />
@@ -32,13 +32,13 @@ function app(path: string) {
 }
 
 beforeEach(() => {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => [{ id: 1, title: "Exemple", body: "" }] }));
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => [{ village: "Lycée Carnot", points: 820 }] }));
   document.documentElement.className = "";
   document.documentElement.style.fontSize = "";
 });
 
 describe("Accessibilité (axe-core)", () => {
-  for (const path of ["/", "/demo", "/assistant", "/defis", "/credits", "/accessibilite"]) {
+  for (const path of ["/", "/quete/reemploi", "/podium", "/defis", "/credits", "/accessibilite"]) {
     it(`aucune violation sur ${path}`, async () => {
       const { container } = app(path);
       await screen.findByRole("heading", { level: 1 });

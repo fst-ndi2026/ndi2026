@@ -1,68 +1,90 @@
 [
   {
-    "id": "accessibilite",
-    "titre": "Accessibilité (exemple)",
+    "id": "beaux-boutons",
+    "titre": "Oh les beaux boutons (UX et gamification)",
     "exigences": [
       {
-        "texte": "Navigation complète au clavier, focus visible, lien d'évitement",
-        "preuve": "Tab sur toutes les pages ; :focus-visible ; lien « Aller au contenu »",
+        "texte": "Parcours clair et appel à l'action visible",
+        "preuve": "Bouton principal « Continuer : prochaine quête » sur la carte",
         "fait": true
       },
       {
-        "texte": "Contrastes AA et mode contraste élevé",
-        "preuve": "Palette vérifiée ; bouton « Contraste élevé » (aria-pressed)",
+        "texte": "Mécaniques ludiques qui donnent envie d'agir",
+        "preuve": "Quêtes de 2 minutes, points, jauges par pilier, jalons, quêtes verrouillées",
         "fait": true
       },
       {
-        "texte": "Texte agrandissable jusqu'à 200 %",
-        "preuve": "Boutons A+ / A− ; mise en page fluide",
-        "fait": true
-      },
-      {
-        "texte": "Titre de page unique et annonce des changements de page",
-        "preuve": "document.title + zone aria-live à chaque navigation",
-        "fait": true
-      },
-      {
-        "texte": "Champs étiquetés, erreurs annoncées, langue déclarée",
-        "preuve": "<label> sur chaque champ ; role=alert / aria-live ; <html lang dir>",
-        "fait": true
-      },
-      {
-        "texte": "Audit automatique sans violation",
-        "preuve": "Tests axe-core dans la CI ; déclaration sur la page /accessibilite",
+        "texte": "Accessibilité (couleurs, contrastes, clavier, aria, alt)",
+        "preuve": "Tests axe-core sans violation ; page /accessibilite",
         "fait": true
       }
     ]
   },
   {
-    "id": "sobriete",
-    "titre": "Éco-conception (exemple)",
+    "id": "rafiq-ai",
+    "titre": "Rafiq-AI (secrétaire virtuel)",
     "exigences": [
       {
-        "texte": "Page légère, polices système, aucune lecture automatique",
-        "preuve": "Poids affiché dans le pied de page",
+        "texte": "Répond aux questions sur le défi national et l'application",
+        "preuve": "Rafiq sur la carte, base de connaissances NIRD (kb.json)",
+        "fait": true
+      },
+      {
+        "texte": "Sans configuration complexe, réutilisable",
+        "preuve": "Une base JSON à remplacer ; clé IA facultative",
+        "fait": true
+      },
+      {
+        "texte": "Bonus : base de connaissance indépendante",
+        "preuve": "apps/api/kb.json séparé du contenu de l'application",
         "fait": true
       }
     ]
   },
   {
-    "id": "securite",
-    "titre": "Sécurité (exemple)",
+    "id": "ia-low-cost",
+    "titre": "IA Low-Cost pour les services publics",
     "exigences": [
       {
-        "texte": "Aucun secret dans le dépôt",
-        "preuve": ".env ignoré ; .env.example vide",
+        "texte": "Assistant léger, utilisable avec une faible connexion",
+        "preuve": "Recherche locale dans le navigateur quand le réseau tombe (badge « Hors connexion »)",
         "fait": true
       },
       {
-        "texte": "Validation serveur et requêtes SQL paramétrées",
-        "preuve": "zod sur chaque route ; pool.query(..., [$1])",
+        "texte": "Coût minimal",
+        "preuve": "Aucun modèle requis ; modèle de langage seulement si une clé est fournie, avec cache",
+        "fait": true
+      }
+    ]
+  },
+  {
+    "id": "green-it",
+    "titre": "Green it! (éco-conception)",
+    "exigences": [
+      {
+        "texte": "Page légère, polices système, aucune police externe",
+        "preuve": "Poids de la page affiché dans le pied de page",
         "fait": true
       },
       {
-        "texte": "En-têtes de sécurité et limitation de débit",
-        "preuve": "helmet + express-rate-limit, testés",
+        "texte": "Aucun traceur, données minimales",
+        "preuve": "Pseudonymes uniquement ; progression stockée dans le navigateur",
+        "fait": true
+      }
+    ]
+  },
+  {
+    "id": "podium",
+    "titre": "Podium de concours",
+    "exigences": [
+      {
+        "texte": "Classement mis à jour automatiquement depuis la base",
+        "preuve": "/api/scores ; rafraîchissement toutes les 10 s (en pause si l'onglet est caché)",
+        "fait": true
+      },
+      {
+        "texte": "Bonnes pratiques WCAG",
+        "preuve": "Tableau avec caption et en-têtes, annonces aria-live, contrastes AA",
         "fait": true
       }
     ]

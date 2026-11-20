@@ -23,7 +23,7 @@ describe("API", () => {
   });
   it("répond sans clé IA (repli)", async () => {
     const res = await request(app).post("/api/ask").send({ question: "Bonjour ?" });
-    expect(res.body.source).toBe("fallback");
+    expect(res.body.source).toBe("local");
   });
   it("renvoie 404 JSON pour une route API inconnue", async () => {
     const res = await request(app).get("/api/nope");

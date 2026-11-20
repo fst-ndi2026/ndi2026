@@ -3,8 +3,8 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 type Lang = "fr" | "ar";
 const dict = {
   fr: {
-    skip: "Aller au contenu", home: "Accueil", demo: "Démo", assistant: "Assistant", defis: "Défis",
-    credits: "Crédits", lang: "العربية", title: "Équipe FST - Nuit de l'Info 2026",
+    skip: "Aller au contenu", home: "Carte", podium: "Podium", demo: "Démo", assistant: "Assistant", defis: "Défis",
+    credits: "Crédits", lang: "العربية", title: "Le Village Résistant",
     intro: "Template prêt à adapter au sujet national.",
     loading: "Chargement…", empty: "Aucun élément pour l'instant. Ajoutez-en un ci-dessous.",
     loadError: "Impossible de charger les données. Réessayez.", retry: "Réessayer",
@@ -15,8 +15,8 @@ const dict = {
     a11y: "Accessibilité", textBigger: "Agrandir le texte", textSmaller: "Réduire le texte", contrast: "Contraste élevé", a11yTools: "Outils d'accessibilité", pageLoaded: "Page chargée :",
   },
   ar: {
-    skip: "انتقل إلى المحتوى", home: "الرئيسية", demo: "تجربة", assistant: "المساعد", defis: "التحديات",
-    credits: "المصادر", lang: "Français", title: "فريق FST - ليلة المعلوميات 2026",
+    skip: "انتقل إلى المحتوى", home: "الخريطة", podium: "الترتيب", demo: "تجربة", assistant: "المساعد", defis: "التحديات",
+    credits: "المصادر", lang: "Français", title: "القرية الصامدة",
     intro: "قالب جاهز للتكييف مع الموضوع الوطني.",
     loading: "جارٍ التحميل…", empty: "لا توجد عناصر بعد. أضف عنصراً أدناه.",
     loadError: "تعذّر تحميل البيانات. حاول مجدداً.", retry: "إعادة المحاولة",

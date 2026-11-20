@@ -1,0 +1,14 @@
+[
+  {"id":"nird","titre":"Qu'est-ce que NIRD ?","texte":"NIRD signifie Numérique Inclusif, Responsable et Durable. C'est une démarche portée par un collectif enseignant pour aider les écoles, collèges et lycées à réduire leur dépendance aux grandes entreprises du numérique."},
+  {"id":"piliers","titre":"Les trois piliers","texte":"Inclusion : accès équitable au numérique et réduction de la fracture numérique. Responsabilité : usage raisonné de technologies souveraines qui respectent les données personnelles. Durabilité : lutte contre l'obsolescence en choisissant Linux et en maîtrisant les coûts."},
+  {"id":"jalons","titre":"Les trois jalons","texte":"La démarche avance en trois jalons : mobilisation, expérimentation, puis intégration dans tout l'établissement."},
+  {"id":"rejoindre","titre":"Comment rejoindre NIRD ?","texte":"Un enseignant intéressé rejoint le forum Tchap de la démarche pour échanger, mutualiser et engager son établissement comme pilote. Le site officiel est nird.forge.apps.education.fr."},
+  {"id":"linux","titre":"Pourquoi Linux ?","texte":"L'adoption progressive de Linux est le socle de la démarche : il fonctionne bien sur des ordinateurs anciens, évite des achats, prolonge la vie du matériel et laisse l'établissement maître de ses outils."},
+  {"id":"windows10","titre":"Fin de Windows 10","texte":"La fin du support de Windows 10 oblige à choisir : racheter du matériel ou passer à Linux. Beaucoup d'ordinateurs encore fonctionnels peuvent ainsi rester en service."},
+  {"id":"reconditionner","titre":"Reconditionner des ordinateurs","texte":"Les élèves peuvent reconditionner des ordinateurs avec Linux, par exemple dans un club informatique, puis les donner à des écoles ou à des familles. Le lycée Carnot a ainsi distribué des PC reconditionnés à une école primaire."},
+  {"id":"carnot","titre":"Le lycée Carnot","texte":"La démarche s'inspire du projet NIRD du lycée Carnot de Bruay-la-Buissière, qu'elle souhaite étendre à d'autres établissements."},
+  {"id":"donnees","titre":"Protéger les données","texte":"Utiliser des services hébergés localement ou souverains, comme un cloud d'établissement, garde les données des élèves sous le contrôle de l'école plutôt que chez de grandes entreprises étrangères."},
+  {"id":"collectivites","titre":"Le rôle des collectivités","texte":"Les collectivités qui équipent les établissements peuvent accompagner la démarche : choix de Linux, reconditionnement et maîtrise des coûts."},
+  {"id":"village","titre":"Le Village Résistant","texte":"Dans cette application, chaque quartier du village correspond à un pilier et chaque bâtiment à une quête de deux minutes. Libérer les quêtes fait progresser votre village vers l'intégration."},
+  {"id":"podium","titre":"Le podium","texte":"Le podium classe les villages par points, sous un pseudonyme. Aucune donnée personnelle n'est demandée."}
+]
