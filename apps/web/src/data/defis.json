@@ -40,8 +40,28 @@
     "titre": "Éco-conception (exemple)",
     "exigences": [
       {
-        "texte": "Page légère, polices système, aucune lecture automatique",
-        "preuve": "Poids affiché dans le pied de page",
+        "texte": "Mesure visible de l'empreinte de chaque page",
+        "preuve": "Badge EcoIndex estimé (DOM, requêtes, poids) en pied de page",
+        "fait": true
+      },
+      {
+        "texte": "Mode sobre au choix de l'utilisateur",
+        "preuve": "Médias sur demande, sans animations, fond sombre ; mémorisé",
+        "fait": true
+      },
+      {
+        "texte": "Page légère, polices système, cache long des fichiers",
+        "preuve": "Budget de poids vérifié dans la CI (npm run budget) ; en-têtes Cache-Control",
+        "fait": true
+      },
+      {
+        "texte": "Images optimisées",
+        "preuve": "npm run images : conversion WebP et redimensionnement",
+        "fait": true
+      },
+      {
+        "texte": "Déclaration d'écoconception",
+        "preuve": "Page /sobriete (modèle RGESN 2024)",
         "fait": true
       }
     ]

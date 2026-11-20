@@ -6,6 +6,7 @@ import Assistant from "./pages/Assistant";
 import Defis from "./pages/Defis";
 import Credits from "./pages/Credits";
 import Accessibilite from "./pages/Accessibilite";
+import Sobriete from "./pages/Sobriete";
 import Inscription from "./pages/Inscription";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="defis" element={<Defis />} />
           <Route path="credits" element={<Credits />} />
           <Route path="accessibilite" element={<Accessibilite />} />
+          <Route path="sobriete" element={<Sobriete />} />
           <Route path="inscription" element={<Inscription />} />
         </Route>
       </Routes>

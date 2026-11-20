@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useI18n } from "../lib/i18n";
 import { useKonami } from "../lib/useKonami";
-import PageWeight from "./PageWeight";
+import EcoBadge from "./EcoBadge";
 import A11yPanel from "./A11yPanel";
 import RouteAnnouncer from "./RouteAnnouncer";
 
@@ -37,7 +37,7 @@ export default function Layout() {
       </main>
       <A11yPanel />
       <footer>
-        <p>Équipe FST - Université de Nouakchott · Licence MIT · <PageWeight /></p>
+        <div className="footer-row"><EcoBadge /><p>Équipe FST - Université de Nouakchott · Licence MIT · aucun traceur · <NavLink to="/sobriete">Sobriété</NavLink></p></div>
       </footer>
     </>
   );

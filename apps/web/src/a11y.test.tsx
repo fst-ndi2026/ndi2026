@@ -9,12 +9,14 @@ import Assistant from "./pages/Assistant";
 import Defis from "./pages/Defis";
 import Credits from "./pages/Credits";
 import Accessibilite from "./pages/Accessibilite";
+import Sobriete from "./pages/Sobriete";
+import { SobreProvider } from "./lib/sobre";
 import { I18nProvider } from "./lib/i18n";
 import { A11yProvider } from "./lib/a11y";
 
 function app(path: string) {
   return render(
-    <I18nProvider><A11yProvider>
+    <I18nProvider><A11yProvider><SobreProvider>
       <MemoryRouter initialEntries={[path]}>
         <Routes>
           <Route element={<Layout />}>
@@ -24,10 +26,11 @@ function app(path: string) {
             <Route path="defis" element={<Defis />} />
             <Route path="credits" element={<Credits />} />
             <Route path="accessibilite" element={<Accessibilite />} />
+            <Route path="sobriete" element={<Sobriete />} />
           </Route>
         </Routes>
       </MemoryRouter>
-    </A11yProvider></I18nProvider>
+    </SobreProvider></A11yProvider></I18nProvider>
   );
 }
 
@@ -38,7 +41,7 @@ beforeEach(() => {
 });
 
 describe("Accessibilité (axe-core)", () => {
-  for (const path of ["/", "/demo", "/assistant", "/defis", "/credits", "/accessibilite"]) {
+  for (const path of ["/", "/demo", "/assistant", "/defis", "/credits", "/accessibilite", "/sobriete"]) {
     it(`aucune violation sur ${path}`, async () => {
       const { container } = app(path);
       await screen.findByRole("heading", { level: 1 });

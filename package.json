@@ -9,7 +9,12 @@
     "dev:web": "npm run dev -w apps/web",
     "test": "npm test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
-    "start": "npm run start -w apps/api"
+    "start": "npm run start -w apps/api",
+    "budget": "node scripts/budget.mjs",
+    "images": "node scripts/images.mjs"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
 }
