@@ -111,6 +111,12 @@ export const store = {
     if (!pool) { memoryUnanswered.push(q); return; }
     await (await db()).query("INSERT INTO questions_sans_reponse (question) VALUES ($1)", [q]);
   },
+  async countDemandes() {
+    const year = new Date().getFullYear();
+    if (!pool) return memoryDemandes.filter((d) => d.year === year).length;
+    const { rows } = await (await db()).query("SELECT count(*)::int AS n FROM demandes WHERE date_part('year', created_at) = $1", [year]);
+    return rows[0].n;
+  },
   async countUnanswered() {
     if (!pool) return memoryUnanswered.length;
     const { rows } = await (await db()).query("SELECT count(*)::int AS n FROM questions_sans_reponse");

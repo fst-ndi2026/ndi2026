@@ -123,6 +123,14 @@ app.get("/api/rafiq/stats", async (_req, res, next) => {
   try { res.json({ fiches: kbSize(), sansReponse: await store.countUnanswered(), ai: aiConfigured() }); } catch (e) { next(e); }
 });
 
+// Compteurs publics (agrégés, sans donnée personnelle) pour le village 3D.
+app.get("/api/village", async (_req, res, next) => {
+  try {
+    const [demandes, sansReponse] = await Promise.all([store.countDemandes(), store.countUnanswered()]);
+    res.set("cache-control", "no-store").json({ demandes, sansReponse, fiches: kbSize() });
+  } catch (e) { next(e); }
+});
+
 app.use("/api", (_req, res) => res.status(404).json({ error: "not_found" }));
 
 // Plan B : un seul service qui sert aussi le front (après npm run build).

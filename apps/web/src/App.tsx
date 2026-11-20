@@ -10,6 +10,7 @@ import Sobriete from "./pages/Sobriete";
 import Securite from "./pages/Securite";
 import Agir from "./pages/Agir";
 import Inscription from "./pages/Inscription";
+import Village from "./pages/Village";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="securite" element={<Securite />} />
           <Route path="agir" element={<Agir />} />
           <Route path="inscription" element={<Inscription />} />
+          <Route path="village" element={<Village />} />
         </Route>
       </Routes>
     </BrowserRouter>
