@@ -10,6 +10,7 @@ import Defis from "./pages/Defis";
 import Credits from "./pages/Credits";
 import Accessibilite from "./pages/Accessibilite";
 import Sobriete from "./pages/Sobriete";
+import Securite from "./pages/Securite";
 import { SobreProvider } from "./lib/sobre";
 import { I18nProvider } from "./lib/i18n";
 import { A11yProvider } from "./lib/a11y";
@@ -27,6 +28,7 @@ function app(path: string) {
             <Route path="credits" element={<Credits />} />
             <Route path="accessibilite" element={<Accessibilite />} />
             <Route path="sobriete" element={<Sobriete />} />
+            <Route path="securite" element={<Securite />} />
           </Route>
         </Routes>
       </MemoryRouter>
@@ -41,7 +43,7 @@ beforeEach(() => {
 });
 
 describe("Accessibilité (axe-core)", () => {
-  for (const path of ["/", "/demo", "/assistant", "/defis", "/credits", "/accessibilite", "/sobriete"]) {
+  for (const path of ["/", "/demo", "/assistant", "/defis", "/credits", "/accessibilite", "/sobriete", "/securite"]) {
     it(`aucune violation sur ${path}`, async () => {
       const { container } = app(path);
       await screen.findByRole("heading", { level: 1 });

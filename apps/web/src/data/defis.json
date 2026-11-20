@@ -71,8 +71,23 @@
     "titre": "Sécurité (exemple)",
     "exigences": [
       {
-        "texte": "Aucun secret dans le dépôt",
-        "preuve": ".env ignoré ; .env.example vide",
+        "texte": "En-têtes de sécurité stricts sur toutes les pages",
+        "preuve": "CSP default-src 'none', HSTS, nosniff, COOP/CORP dans vercel.json ; note sur MDN HTTP Observatory",
+        "fait": true
+      },
+      {
+        "texte": "Vérification visible par le jury",
+        "preuve": "Badge bouclier en pied de page : 9 protections relues en direct",
+        "fait": true
+      },
+      {
+        "texte": "Déclaration de sécurité OWASP Top 10:2025",
+        "preuve": "Page /securite : les dix risques et ce qui est fait pour chacun",
+        "fait": true
+      },
+      {
+        "texte": "Mots de passe robustes et non fuités",
+        "preuve": "Jauge CNIL (80 bits) partagée client/serveur, Pwned Passwords par k-anonymat, scrypt + sel",
         "fait": true
       },
       {
@@ -81,8 +96,18 @@
         "fait": true
       },
       {
-        "texte": "En-têtes de sécurité et limitation de débit",
-        "preuve": "helmet + express-rate-limit, testés",
+        "texte": "Limitation de débit et erreurs neutres",
+        "preuve": "express-rate-limit (10 inscriptions/min) ; réponses JSON sans trace",
+        "fait": true
+      },
+      {
+        "texte": "Chaîne d'approvisionnement surveillée",
+        "preuve": "npm audit bloquant dans la CI, Dependabot, aucun secret dans le dépôt",
+        "fait": true
+      },
+      {
+        "texte": "Contact de signalement",
+        "preuve": "/.well-known/security.txt (RFC 9116)",
         "fait": true
       }
     ]

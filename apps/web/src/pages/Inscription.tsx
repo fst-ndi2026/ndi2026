@@ -1,5 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useI18n, type Key } from "../lib/i18n";
+import { estimatePassword } from "../../../../shared/password.js";
+import PasswordStrength from "../components/PasswordStrength";
 
 type Field = "fullName" | "email" | "github" | "filiere" | "password" | "confirm" | "acceptTerms";
 type Errors = Partial<Record<Field, Key>>;
@@ -15,7 +17,7 @@ export function validate(v: typeof empty & { acceptTerms: boolean }): Errors {
   if (v.fullName.trim().length < 2) e.fullName = "errFullName";
   if (!EMAIL_RE.test(v.email.trim())) e.email = "errEmail";
   if (v.github.trim() && !GITHUB_RE.test(v.github.trim())) e.github = "errGithub";
-  if (v.password.length < 8) e.password = "errPassword";
+  if (!estimatePassword(v.password).accepted) e.password = "errPassword";
   if (v.confirm !== v.password) e.confirm = "errConfirm";
   if (!v.acceptTerms) e.acceptTerms = "errTerms";
   return e;
@@ -28,6 +30,7 @@ export default function Inscription() {
   const [errors, setErrors] = useState<Errors>({});
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [sending, setSending] = useState(false);
+  const [leak, setLeak] = useState<number | null>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
   const set = (k: keyof typeof empty) => (e: { target: { value: string } }) =>
@@ -37,6 +40,7 @@ export default function Inscription() {
     e.preventDefault();
     setMsg(null);
     const errs = validate({ ...values, acceptTerms });
+    if (!errs.password && leak) errs.password = "errPwned";
     setErrors(errs);
     if (Object.keys(errs).length) {
       requestAnimationFrame(() => summaryRef.current?.focus());
@@ -120,8 +124,9 @@ export default function Inscription() {
           <label htmlFor="password">{t("password")}</label>
           <input id="password" name="password" type="password" autoComplete="new-password" required
             minLength={8} maxLength={128} value={values.password} onChange={set("password")}
-            aria-invalid={!!errors.password} aria-describedby={describe("password", "password-hint")} />
+            aria-invalid={!!errors.password} aria-describedby={describe("password", "password-hint password-strength")} />
           <p id="password-hint">{t("passwordHint")}</p>
+          <PasswordStrength id="password-strength" password={values.password} onLeak={setLeak} />
           {fieldError("password")}
         </div>
         <div>

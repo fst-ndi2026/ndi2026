@@ -7,8 +7,8 @@ afterEach(() => vi.unstubAllGlobals());
 function fill() {
   fireEvent.change(screen.getByLabelText("Nom complet"), { target: { value: "Aïcha Mint Ahmed" } });
   fireEvent.change(screen.getByLabelText("Adresse e-mail"), { target: { value: "aicha@example.com" } });
-  fireEvent.change(screen.getByLabelText("Mot de passe"), { target: { value: "motdepasse123" } });
-  fireEvent.change(screen.getByLabelText("Confirmer le mot de passe"), { target: { value: "motdepasse123" } });
+  fireEvent.change(screen.getByLabelText("Mot de passe"), { target: { value: "sable-dromadaire-7-lune" } });
+  fireEvent.change(screen.getByLabelText("Confirmer le mot de passe"), { target: { value: "sable-dromadaire-7-lune" } });
   fireEvent.click(screen.getByLabelText(/J'accepte la charte/));
 }
 
@@ -41,6 +41,19 @@ describe("Inscription", () => {
     const body = JSON.parse(fetch.mock.calls[0][1].body);
     expect(body).toMatchObject({ email: "aicha@example.com", acceptTerms: true });
     expect(body.confirm).toBeUndefined();
+  });
+
+  it("refuse un mot de passe trop faible, côté navigateur", async () => {
+    const fetch = vi.fn();
+    vi.stubGlobal("fetch", fetch);
+    render(<Inscription />);
+    fill();
+    fireEvent.change(screen.getByLabelText("Mot de passe"), { target: { value: "Nouakchott2026" } });
+    fireEvent.change(screen.getByLabelText("Confirmer le mot de passe"), { target: { value: "Nouakchott2026" } });
+    expect(screen.getByText("Très faible")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Créer mon compte" }));
+    expect((await screen.findAllByText(/Mot de passe trop faible/)).length).toBeGreaterThan(0);
+    expect(fetch.mock.calls.some((c) => String(c[0]).includes("/api/register"))).toBe(false);
   });
 
   it("signale un e-mail déjà inscrit", async () => {

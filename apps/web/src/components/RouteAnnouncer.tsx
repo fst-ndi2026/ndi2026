@@ -4,7 +4,7 @@ import { useI18n, type Key } from "../lib/i18n";
 
 // À chaque changement de page : titre du document mis à jour, focus sur le contenu, annonce aux lecteurs d'écran.
 const TITLES: Record<string, Key> = {
-  "/": "home", "/demo": "demo", "/assistant": "assistant", "/defis": "defis", "/credits": "credits", "/accessibilite": "a11y", "/sobriete": "sobriete",
+  "/": "home", "/demo": "demo", "/assistant": "assistant", "/defis": "defis", "/credits": "credits", "/accessibilite": "a11y", "/sobriete": "sobriete", "/securite": "securite",
 };
 
 export default function RouteAnnouncer() {

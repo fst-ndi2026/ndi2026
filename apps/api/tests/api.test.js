@@ -24,7 +24,7 @@ describe("API", () => {
   it("inscrit un utilisateur sans renvoyer le mot de passe", async () => {
     const res = await request(app).post("/api/register").send({
       fullName: "Sidi Ould Test", email: "Sidi@Example.com", github: "sidi-test",
-      filiere: "Informatique", password: "motdepasse123", acceptTerms: true,
+      filiere: "Informatique", password: "sable-dromadaire-7-lune", acceptTerms: true,
     });
     expect(res.status).toBe(201);
     expect(res.body.email).toBe("sidi@example.com");
@@ -33,7 +33,7 @@ describe("API", () => {
   });
   it("refuse un e-mail déjà inscrit", async () => {
     const res = await request(app).post("/api/register").send({
-      fullName: "Autre", email: "sidi@example.com", password: "motdepasse123", acceptTerms: true,
+      fullName: "Autre", email: "sidi@example.com", password: "sable-dromadaire-7-lune", acceptTerms: true,
     });
     expect(res.status).toBe(409);
   });

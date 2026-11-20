@@ -9,6 +9,7 @@ import crypto from "node:crypto";
 import { z } from "zod";
 import { store } from "./store.js";
 import { ask } from "./ai.js";
+import { estimatePassword } from "../../shared/password.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -40,7 +41,7 @@ const registerSchema = z.object({
   email: z.string().trim().toLowerCase().email().max(254),
   github: z.string().trim().regex(/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/).optional().or(z.literal("")),
   filiere: z.string().trim().max(80).default(""),
-  password: z.string().min(8).max(128),
+  password: z.string().min(8).max(128).refine((p) => estimatePassword(p).accepted),
   acceptTerms: z.literal(true),
 });
 function hashPassword(password) {
@@ -83,7 +84,7 @@ if (fs.existsSync(dist)) {
 }
 
 app.use((err, _req, res, _next) => {
-  console.error(err);
+  console.error(err?.name ?? "Error", err?.message ?? ""); // jamais le corps de la requête
   res.status(500).json({ error: "server_error" });
 });
 
