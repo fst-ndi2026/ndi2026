@@ -38,3 +38,17 @@ main { max-width: 900px; margin: 0 auto; padding: calc(var(--space) * 3) calc(va
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* --- Accessibilité --- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.toolbar { display: flex; gap: var(--space); margin-block-start: var(--space); flex-wrap: wrap; }
+.toolbar button { background: transparent; color: var(--text); border: 2px solid var(--accent); }
+.toolbar button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+button:disabled { opacity: .6; cursor: not-allowed; }
+nav a[aria-current="page"] { font-weight: 700; text-decoration-thickness: 3px; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { border: 1px solid var(--muted); padding: var(--space); text-align: start; vertical-align: top; }
+main:focus { outline: none; }
+/* Contraste élevé : noir / blanc / jaune */
+html.hc { --bg: #000; --surface: #000; --text: #fff; --muted: #fff; --accent: #ffeb3b; --success: #7CFC00; --danger: #ff8a80; }
+html.hc a { text-decoration: underline; }

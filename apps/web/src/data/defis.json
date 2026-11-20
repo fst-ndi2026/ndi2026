@@ -3,24 +3,68 @@
     "id": "accessibilite",
     "titre": "Accessibilité (exemple)",
     "exigences": [
-      { "texte": "Navigation complète au clavier, focus visible", "preuve": "Tab sur toutes les pages ; :focus-visible dans tokens.css", "fait": true },
-      { "texte": "Contrastes AA, champs étiquetés, langue déclarée", "preuve": "Palette vérifiée ; <label> sur chaque champ ; <html lang>", "fait": true }
+      {
+        "texte": "Navigation complète au clavier, focus visible, lien d'évitement",
+        "preuve": "Tab sur toutes les pages ; :focus-visible ; lien « Aller au contenu »",
+        "fait": true
+      },
+      {
+        "texte": "Contrastes AA et mode contraste élevé",
+        "preuve": "Palette vérifiée ; bouton « Contraste élevé » (aria-pressed)",
+        "fait": true
+      },
+      {
+        "texte": "Texte agrandissable jusqu'à 200 %",
+        "preuve": "Boutons A+ / A− ; mise en page fluide",
+        "fait": true
+      },
+      {
+        "texte": "Titre de page unique et annonce des changements de page",
+        "preuve": "document.title + zone aria-live à chaque navigation",
+        "fait": true
+      },
+      {
+        "texte": "Champs étiquetés, erreurs annoncées, langue déclarée",
+        "preuve": "<label> sur chaque champ ; role=alert / aria-live ; <html lang dir>",
+        "fait": true
+      },
+      {
+        "texte": "Audit automatique sans violation",
+        "preuve": "Tests axe-core dans la CI ; déclaration sur la page /accessibilite",
+        "fait": true
+      }
     ]
   },
   {
     "id": "sobriete",
     "titre": "Éco-conception (exemple)",
     "exigences": [
-      { "texte": "Page légère, polices système, aucune lecture automatique", "preuve": "Poids affiché dans le pied de page", "fait": true }
+      {
+        "texte": "Page légère, polices système, aucune lecture automatique",
+        "preuve": "Poids affiché dans le pied de page",
+        "fait": true
+      }
     ]
   },
   {
     "id": "securite",
     "titre": "Sécurité (exemple)",
     "exigences": [
-      { "texte": "Aucun secret dans le dépôt", "preuve": ".env ignoré ; .env.example vide", "fait": true },
-      { "texte": "Validation serveur et requêtes SQL paramétrées", "preuve": "zod sur chaque route ; pool.query(..., [$1])", "fait": true },
-      { "texte": "En-têtes de sécurité et limitation de débit", "preuve": "helmet + express-rate-limit, testés", "fait": true }
+      {
+        "texte": "Aucun secret dans le dépôt",
+        "preuve": ".env ignoré ; .env.example vide",
+        "fait": true
+      },
+      {
+        "texte": "Validation serveur et requêtes SQL paramétrées",
+        "preuve": "zod sur chaque route ; pool.query(..., [$1])",
+        "fait": true
+      },
+      {
+        "texte": "En-têtes de sécurité et limitation de débit",
+        "preuve": "helmet + express-rate-limit, testés",
+        "fait": true
+      }
     ]
   }
 ]

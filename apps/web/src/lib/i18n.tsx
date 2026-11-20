@@ -12,6 +12,7 @@ const dict = {
     added: "Élément ajouté.", ask: "Poser la question", question: "Votre question",
     aiLabel: "Réponse générée par IA - à vérifier.", fallbackLabel: "Réponse de secours (IA indisponible).",
     weight: "Poids de la page", konami: "Bravo, vous avez trouvé l'easter egg !",
+    a11y: "Accessibilité", textBigger: "Agrandir le texte", textSmaller: "Réduire le texte", contrast: "Contraste élevé", a11yTools: "Outils d'accessibilité", pageLoaded: "Page chargée :",
   },
   ar: {
     skip: "انتقل إلى المحتوى", home: "الرئيسية", demo: "تجربة", assistant: "المساعد", defis: "التحديات",
@@ -23,6 +24,7 @@ const dict = {
     added: "تمت الإضافة.", ask: "اطرح السؤال", question: "سؤالك",
     aiLabel: "إجابة مولّدة بالذكاء الاصطناعي - تحقّق منها.", fallbackLabel: "إجابة احتياطية (الذكاء الاصطناعي غير متاح).",
     weight: "وزن الصفحة", konami: "أحسنت، وجدت المفاجأة المخفية!",
+    a11y: "سهولة الوصول", textBigger: "تكبير النص", textSmaller: "تصغير النص", contrast: "تباين عالٍ", a11yTools: "أدوات سهولة الوصول", pageLoaded: "تم تحميل الصفحة:",
   },
 } as const;
 

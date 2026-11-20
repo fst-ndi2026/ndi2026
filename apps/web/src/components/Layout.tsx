@@ -2,6 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useI18n } from "../lib/i18n";
 import { useKonami } from "../lib/useKonami";
 import PageWeight from "./PageWeight";
+import A11yToolbar from "./A11yToolbar";
+import RouteAnnouncer from "./RouteAnnouncer";
 
 export default function Layout() {
   const { t, toggle } = useI18n();
@@ -17,10 +19,13 @@ export default function Layout() {
             <li><NavLink to="/assistant">{t("assistant")}</NavLink></li>
             <li><NavLink to="/defis">{t("defis")}</NavLink></li>
             <li><NavLink to="/credits">{t("credits")}</NavLink></li>
-            <li><button type="button" onClick={toggle}>{t("lang")}</button></li>
+            <li><NavLink to="/accessibilite">{t("a11y")}</NavLink></li>
+            <li><button type="button" onClick={toggle} lang={t("lang") === "العربية" ? "ar" : "fr"}>{t("lang")}</button></li>
           </ul>
         </nav>
+        <A11yToolbar />
       </header>
+      <RouteAnnouncer />
       <main id="main" tabIndex={-1}>
         {found && (
           <div className="card" role="status">

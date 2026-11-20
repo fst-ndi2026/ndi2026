@@ -5,6 +5,7 @@ import Demo from "./pages/Demo";
 import Assistant from "./pages/Assistant";
 import Defis from "./pages/Defis";
 import Credits from "./pages/Credits";
+import Accessibilite from "./pages/Accessibilite";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="assistant" element={<Assistant />} />
           <Route path="defis" element={<Defis />} />
           <Route path="credits" element={<Credits />} />
+          <Route path="accessibilite" element={<Accessibilite />} />
         </Route>
       </Routes>
     </BrowserRouter>
