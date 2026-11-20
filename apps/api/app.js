@@ -11,6 +11,7 @@ import { ask } from "./ai.js";
 
 const app = express();
 app.disable("x-powered-by");
+app.set("trust proxy", 1); // derrière le proxy de Vercel / Render
 app.use(helmet());
 if (process.env.WEB_ORIGIN) app.use(cors({ origin: process.env.WEB_ORIGIN }));
 app.use(express.json({ limit: "100kb" }));
