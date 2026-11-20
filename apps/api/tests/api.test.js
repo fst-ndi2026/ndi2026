@@ -21,6 +21,29 @@ describe("API", () => {
     expect(res.status).toBe(201);
     expect(res.body.title).toBe("Test");
   });
+  it("inscrit un utilisateur sans renvoyer le mot de passe", async () => {
+    const res = await request(app).post("/api/register").send({
+      fullName: "Sidi Ould Test", email: "Sidi@Example.com", github: "sidi-test",
+      filiere: "Informatique", password: "motdepasse123", acceptTerms: true,
+    });
+    expect(res.status).toBe(201);
+    expect(res.body.email).toBe("sidi@example.com");
+    expect(res.body.password).toBeUndefined();
+    expect(res.body.passwordHash).toBeUndefined();
+  });
+  it("refuse un e-mail déjà inscrit", async () => {
+    const res = await request(app).post("/api/register").send({
+      fullName: "Autre", email: "sidi@example.com", password: "motdepasse123", acceptTerms: true,
+    });
+    expect(res.status).toBe(409);
+  });
+  it("refuse une inscription invalide", async () => {
+    const res = await request(app).post("/api/register").send({
+      fullName: "A", email: "pas-un-email", password: "court", acceptTerms: false,
+    });
+    expect(res.status).toBe(400);
+    expect(res.body.fields).toEqual(expect.arrayContaining(["fullName", "email", "password", "acceptTerms"]));
+  });
   it("répond sans clé IA (repli)", async () => {
     const res = await request(app).post("/api/ask").send({ question: "Bonjour ?" });
     expect(res.body.source).toBe("fallback");

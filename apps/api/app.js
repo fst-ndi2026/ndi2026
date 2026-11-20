@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
+import crypto from "node:crypto";
 import { z } from "zod";
 import { store } from "./store.js";
 import { ask } from "./ai.js";
@@ -31,6 +32,38 @@ app.post("/api/items", async (req, res, next) => {
   const parsed = itemSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "invalid_input" });
   try { res.status(201).json(await store.create(parsed.data)); } catch (e) { next(e); }
+});
+
+// Inscription : mot de passe haché avec scrypt (sel aléatoire), jamais renvoyé.
+const registerSchema = z.object({
+  fullName: z.string().trim().min(2).max(100),
+  email: z.string().trim().toLowerCase().email().max(254),
+  github: z.string().trim().regex(/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/).optional().or(z.literal("")),
+  filiere: z.string().trim().max(80).default(""),
+  password: z.string().min(8).max(128),
+  acceptTerms: z.literal(true),
+});
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16);
+  const hash = crypto.scryptSync(password, salt, 64);
+  return `scrypt$${salt.toString("hex")}$${hash.toString("hex")}`;
+}
+app.post("/api/register", rateLimit({ windowMs: 60_000, limit: 10 }), async (req, res, next) => {
+  const parsed = registerSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: "invalid_input", fields: parsed.error.issues.map((i) => i.path[0]) });
+  }
+  const { fullName, email, github, filiere, password } = parsed.data;
+  try {
+    if (await store.findUserByEmail(email)) return res.status(409).json({ error: "email_taken" });
+    const user = await store.createUser({
+      fullName, email, github: github || null, filiere, passwordHash: hashPassword(password),
+    });
+    res.status(201).json(user);
+  } catch (e) {
+    if (e?.code === "23505") return res.status(409).json({ error: "email_taken" });
+    next(e);
+  }
 });
 
 const askSchema = z.object({ question: z.string().trim().min(1).max(500) });
