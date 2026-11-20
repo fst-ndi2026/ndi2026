@@ -19,7 +19,10 @@ if (process.env.WEB_ORIGIN) app.use(cors({ origin: process.env.WEB_ORIGIN }));
 app.use(express.json({ limit: "100kb" }));
 app.use("/api", rateLimit({ windowMs: 60_000, limit: 120 }));
 
-app.get("/api/health", (_req, res) => res.json({ ok: true, store: store.mode }));
+app.get("/api/health", async (_req, res) => {
+  const db = await store.ping().then(() => "ok", () => "error");
+  res.status(db === "ok" ? 200 : 503).json({ ok: db === "ok", store: store.mode, db });
+});
 
 app.get("/api/items", async (_req, res, next) => {
   try { res.json(await store.list()); } catch (e) { next(e); }
