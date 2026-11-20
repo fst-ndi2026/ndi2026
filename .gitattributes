@@ -3,3 +3,4 @@
 *.jpg binary
 *.webp binary
 *.woff2 binary
+publier.cmd text eol=crlf
