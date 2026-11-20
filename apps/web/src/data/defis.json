@@ -152,5 +152,46 @@
         "fait": true
       }
     ]
+  },
+  {
+    "id": "jeu",
+    "titre": "Jeu caché et rétro (exemple)",
+    "exigences": [
+      {
+        "texte": "Un jeu caché à découvrir",
+        "preuve": "FST Snake : code Konami, taper « snake », 5 clics sur un titre, pixel caché du pied de page, ou demander à Rafiq",
+        "fait": true
+      },
+      {
+        "texte": "Gameplay original",
+        "preuve": "Cases spéciales : Éclair, Fantôme, Ciseaux, Sablier, Miroir ; chaque effet change l'apparence du serpent",
+        "fait": true
+      },
+      {
+        "texte": "Le jeu sort de son cadre",
+        "preuve": "Case Évasion : le serpent rampe sur la vraie page et mange ses mots pour reconstituer une phrase mystère, sans modifier la page",
+        "fait": true
+      },
+      {
+        "texte": "Touche rétro sur tout le site",
+        "preuve": "Mode 8-bit : police pixel (Press Start 2P, OFL), palette 16 couleurs, lignes de balayage ; mémorisé",
+        "fait": true
+      },
+      {
+        "texte": "Jouable par tous",
+        "preuve": "Mode sonore stéréo (yeux fermés), touche H pour la position de la pomme, croix directionnelle tactile, ralenti si animations réduites",
+        "fait": true
+      },
+      {
+        "texte": "Classement partagé",
+        "preuve": "Scores en PostgreSQL : 3 lettres, validés et limités à 10 envois par minute",
+        "fait": true
+      },
+      {
+        "texte": "Aucun poids pour les autres visiteurs",
+        "preuve": "Jeu chargé à la demande (fichier séparé de 7 Ko)",
+        "fait": true
+      }
+    ]
   }
 ]

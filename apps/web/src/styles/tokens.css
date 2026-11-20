@@ -195,3 +195,59 @@ html.sobre *, html.sobre *::before, html.sobre *::after { animation: none !impor
 .rq-rules { margin: 0 16px 14px; padding-inline-start: 18px; font-size: 13px; color: #334155; }
 @media (prefers-reduced-motion: no-preference) { .rq-panel { animation: rq-in .15s ease-out; } @keyframes rq-in { from { opacity: 0; transform: translateY(8px); } } }
 html.calm .rq-panel { animation: none; }
+
+/* Jeu caché : borne d'arcade */
+@font-face { font-family: "Press Start 2P"; src: url("/fonts/press-start-2p-latin-400-normal.woff2") format("woff2"); font-display: swap; }
+.arc-pixel { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; vertical-align: middle; }
+.arc-pixel span { display: block; width: 6px; height: 6px; background: #FDE047; }
+.arc-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(2,6,23,.9); display: flex; align-items: center; justify-content: center; padding: 12px; overflow-y: auto; }
+.arc { width: min(720px, 100%); background: #1E1B4B; color: #E0E7FF; border: 6px solid #312E81; border-radius: 22px; box-shadow: 0 0 0 4px #0f172a, 0 24px 60px rgba(0,0,0,.6); padding: 16px; display: flex; flex-direction: column; gap: 10px; font-family: system-ui, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.45; letter-spacing: normal; }
+.arc :focus-visible { outline: 3px solid #FDE047; outline-offset: 2px; }
+.arc-head { display: flex; justify-content: space-between; align-items: center; }
+.arc h2, .arc-hud, .arc-effect, .arc-btn, .arc-big, .arc-score, .arc-save label, .arc-table, .esc h2, .esc-phrase { font-family: "Press Start 2P", ui-monospace, monospace; }
+.arc h2 { margin: 0; font-size: 16px; color: #FDE047; }
+.arc-x { width: 44px; height: 44px; border-radius: 8px; border: 3px solid #A5B4FC; background: transparent; color: #E0E7FF; font-size: 22px; padding: 0; }
+.arc-hud { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; font-size: 10px; }
+.arc-hud div { background: #0B1220; border-radius: 8px; padding: 8px 4px; } .arc-hud dt { color: #A5B4FC; } .arc-hud dd { margin: 6px 0 0; font-size: 14px; color: #fff; }
+.arc-effect { display: flex; align-items: center; gap: 10px; min-height: 32px; padding: 4px 10px; border-radius: 8px; background: #0B1220; font-size: 9px; color: #4ADE80; }
+.arc-bar { flex: 1; height: 8px; background: #312E81; border-radius: 4px; overflow: hidden; } .arc-bar span { display: block; height: 100%; transition: width .2s linear; }
+.arc-screen { position: relative; border: 4px solid #0B1220; border-radius: 6px; overflow: hidden; background: #0B1220; }
+.arc-screen canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.arc-overlay { position: absolute; inset: 0; background: rgba(11,18,32,.88); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 12px; text-align: center; overflow-y: auto; }
+.arc-overlay p { margin: 0; max-width: 460px; }
+.arc-big { font-size: 20px; color: #FDE047; } .arc-red { color: #F87171; } .arc-score { font-size: 26px; color: #FDE047; }
+.arc-btn { min-height: 44px; padding: 0 14px; border-radius: 8px; border: 3px solid #A5B4FC; background: transparent; color: #E0E7FF; font-size: 10px; }
+.arc-btn[aria-pressed="true"] { background: #4338CA; border-color: #FDE047; color: #fff; }
+.arc-btn:disabled { opacity: .5; }
+.arc-primary { background: #FDE047; border-color: #FDE047; color: #1E1B4B; }
+.arc-save { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.arc-save label { font-size: 9px; color: #A5B4FC; width: 100%; }
+.arc-save input { width: 120px; min-height: 48px; text-align: center; border-radius: 8px; border: 4px solid #FDE047; background: #0B1220; color: #FDE047; font-family: "Press Start 2P", monospace; font-size: 18px; letter-spacing: 6px; }
+.arc-table { border-collapse: collapse; font-size: 10px; } .arc-table caption { color: #FDE047; margin-bottom: 6px; } .arc-table th, .arc-table td { padding: 4px 10px; text-align: start; }
+.arc-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.arc-dpad { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); gap: 4px; }
+.arc-pad { border: 0; border-radius: 8px; background: #4338CA; color: #fff; font-size: 16px; padding: 0; }
+.arc-U { grid-area: 1 / 2; } .arc-L { grid-area: 2 / 1; } .arc-R { grid-area: 2 / 3; } .arc-D { grid-area: 3 / 2; }
+.arc-opts { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; justify-content: flex-end; }
+.arc-legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 4px 12px; font-size: 12px; color: #C7D2FE; }
+.arc-legend li { display: flex; align-items: center; gap: 8px; } .arc-legend span { flex: none; width: 20px; height: 20px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+/* Évasion dans le site */
+.esc { position: fixed; inset: 0; z-index: 85; pointer-events: none; }
+.esc-seg { position: absolute; width: 22px; height: 22px; background: #22C55E; border: 2px solid #0B1220; box-sizing: border-box; }
+.esc-head { background: #FDE047; }
+.esc-mask { position: absolute; background: var(--bg, #0f172a); border-radius: 3px; outline: 1px dashed rgba(253,224,71,.5); }
+.esc-panel { pointer-events: auto; position: absolute; inset-inline-end: 16px; top: 16px; width: min(340px, calc(100vw - 32px)); background: #1E1B4B; color: #E0E7FF; border: 4px solid #312E81; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+.esc-panel h2 { margin: 0; font-size: 12px; color: #FDE047; } .esc-panel p { margin: 0; }
+.esc-phrase { padding: 10px; border-radius: 8px; background: #0B1220; font-size: 11px; line-height: 2; color: #FDE047; }
+.esc-note { font-size: 12px; color: #A5B4FC; }
+
+/* Mode 8-bit sur tout le site */
+html.retro { --bg: #0B1220; --surface: #1E1B4B; --text: #E0E7FF; --muted: #C7D2FE; --accent: #FDE047; --success: #4ADE80; --danger: #F87171; }
+html.retro body { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+html.retro h1, html.retro h2, html.retro nav a, html.retro nav button { font-family: "Press Start 2P", ui-monospace, monospace; letter-spacing: 0; line-height: 1.6; }
+html.retro h1 { font-size: clamp(1.1rem, 3vw, 1.6rem); text-shadow: 3px 3px 0 #B91C1C; }
+html.retro h2 { font-size: .95rem; }
+html.retro nav a, html.retro nav button { font-size: .7rem; }
+html.retro .card { border: 4px solid #4338CA; border-radius: 0; box-shadow: 6px 6px 0 #000; }
+html.retro body::after { content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(255,255,255,.035) 0, rgba(255,255,255,.035) 1px, transparent 1px, transparent 3px); }
+html.retro.calm body::after { display: none; }

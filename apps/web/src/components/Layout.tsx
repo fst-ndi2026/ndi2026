@@ -1,15 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useI18n } from "../lib/i18n";
-import { useKonami } from "../lib/useKonami";
 import EcoBadge from "./EcoBadge";
 import SecurityBadge from "./SecurityBadge";
 import A11yPanel from "./A11yPanel";
 import Rafiq from "./Rafiq";
+import ArcadeLauncher from "./ArcadeLauncher";
 import RouteAnnouncer from "./RouteAnnouncer";
 
 export default function Layout() {
   const { t, toggle } = useI18n();
-  const [found, close] = useKonami();
   return (
     <>
       <a className="skip" href="#main">{t("skip")}</a>
@@ -29,18 +28,12 @@ export default function Layout() {
       </header>
       <RouteAnnouncer />
       <main id="main" tabIndex={-1}>
-        {found && (
-          <div className="card" role="status">
-            <p>🎉 {t("konami")}</p>
-            <button type="button" onClick={close}>OK</button>
-          </div>
-        )}
         <Outlet />
       </main>
       <Rafiq />
       <A11yPanel />
       <footer>
-        <div className="footer-row"><div className="footer-badges"><EcoBadge /><SecurityBadge /></div><p>Équipe FST - Université de Nouakchott · Licence MIT · aucun traceur · <NavLink to="/sobriete">Sobriété</NavLink> · <NavLink to="/securite">Sécurité</NavLink></p></div>
+        <div className="footer-row"><div className="footer-badges"><EcoBadge /><SecurityBadge /></div><p>Équipe FST - Université de Nouakchott · Licence MIT · aucun traceur · <NavLink to="/sobriete">Sobriété</NavLink> · <NavLink to="/securite">Sécurité</NavLink> <ArcadeLauncher /></p></div>
       </footer>
     </>
   );

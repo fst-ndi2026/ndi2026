@@ -4,6 +4,10 @@ import { useI18n } from "../lib/i18n";
 import { askRafiq, nanoState, rafiqStats, type NanoState, type Reply, type Stats } from "../lib/rafiq";
 import { kb, SUGGESTIONS } from "../../../../shared/rafiq/search.js";
 import type { PersonaId } from "../../../../shared/rafiq/index";
+import { openArcade } from "./ArcadeLauncher";
+
+// Easter egg : demander à Rafiq de jouer ouvre la borne d'arcade.
+const GAME = /\b(jou(e|es|er|ons)?|jeu|snake|game|arcade)\b|نلعب|لعبة|العب/i;
 
 const T = {
   fr: {
@@ -68,6 +72,11 @@ export default function RafiqChat({ autoFocus = false }: { autoFocus?: boolean }
     if (!question || busy) return;
     setQ("");
     setMsgs((m) => [...m, { who: "user", text: question }]);
+    if (GAME.test(question)) {
+      setMsgs((m) => [...m, { who: "bot", text: lang === "ar" ? "🎮 فكرة رائعة! أفتح لك آلة الألعاب…" : "🎮 Bonne idée ! J'ouvre la borne d'arcade…" }]);
+      setTimeout(openArcade, 600);
+      return;
+    }
     setBusy(true);
     const reply = await askRafiq(question, persona);
     setMsgs((m) => [...m, { who: "bot", text: reply.answer, reply }]);
@@ -120,13 +129,13 @@ export default function RafiqChat({ autoFocus = false }: { autoFocus?: boolean }
           : (
             <div key={i} className="rq-msg rq-bot" lang={m.reply?.lang} dir={m.reply?.lang === "ar" ? "rtl" : "ltr"}>
               <p>{m.text}</p>
-              <div className="rq-meta">
-                {m.reply?.refs.map((id) => {
+              {m.reply && <div className="rq-meta">
+                {m.reply.refs.map((id) => {
                   const f = kb.find((k) => k.id === id);
                   return f ? <Link key={id} to={f.url} className="rq-src">{t.source} : {f.titre[m.reply!.lang]}</Link> : null;
                 })}
-                <span>{t.tag[m.reply!.source]}</span>
-              </div>
+                <span>{t.tag[m.reply.source]}</span>
+              </div>}
             </div>
           ))}
         {busy && <p className="rq-msg rq-bot" aria-busy="true">{t.thinking}</p>}

@@ -27,6 +27,12 @@ CREATE TABLE IF NOT EXISTS questions_sans_reponse (
   question VARCHAR(300) NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+CREATE TABLE IF NOT EXISTS arcade_scores (
+  id SERIAL PRIMARY KEY,
+  name CHAR(3) NOT NULL,
+  score INTEGER NOT NULL CHECK (score >= 0 AND score <= 100000),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 INSERT INTO items (title, body)
   SELECT * FROM (VALUES ('Bienvenue', 'Premier élément de démonstration'), ('Nuit de l''Info 2026', 'Template de l''équipe FST')) AS v(title, body)
   WHERE NOT EXISTS (SELECT 1 FROM items);
@@ -45,6 +51,7 @@ const memory = [
 
 const memoryUsers = [];
 const memoryUnanswered = [];
+const memoryScores = [];
 // Retire adresses e-mail et numéros avant de garder une question.
 const scrub = (q) => q.replace(/[^\s@]+@[^\s@]+/g, "[e-mail]").replace(/\+?\d[\d\s.-]{6,}\d/g, "[numéro]").slice(0, 300);
 
@@ -71,6 +78,15 @@ export const store = {
       [title, body]
     );
     return rows[0];
+  },
+  async topScores(limit = 10) {
+    if (!pool) return [...memoryScores].sort((a, b) => b.score - a.score).slice(0, limit);
+    const { rows } = await (await db()).query("SELECT name, score FROM arcade_scores ORDER BY score DESC, created_at ASC LIMIT $1", [limit]);
+    return rows;
+  },
+  async addScore({ name, score }) {
+    if (!pool) { memoryScores.push({ name, score }); return; }
+    await (await db()).query("INSERT INTO arcade_scores (name, score) VALUES ($1, $2)", [name, score]);
   },
   async logUnanswered(question) {
     const q = scrub(question);

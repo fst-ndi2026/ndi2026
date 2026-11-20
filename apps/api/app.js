@@ -85,6 +85,16 @@ app.post("/api/ask", rateLimit({ windowMs: 60_000, limit: 20 }), async (req, res
     res.json(out);
   } catch (e) { next(e); }
 });
+// Jeu caché : meilleurs scores (3 lettres, aucune donnée personnelle).
+const scoreSchema = z.object({ name: z.string().regex(/^[A-Z]{3}$/), score: z.number().int().min(0).max(100000) });
+app.get("/api/scores", async (_req, res, next) => {
+  try { res.json(await store.topScores(10)); } catch (e) { next(e); }
+});
+app.post("/api/scores", rateLimit({ windowMs: 60_000, limit: 10 }), async (req, res, next) => {
+  const parsed = scoreSchema.safeParse({ ...req.body, name: String(req.body?.name ?? "").toUpperCase() });
+  if (!parsed.success) return res.status(400).json({ error: "invalid_input" });
+  try { await store.addScore(parsed.data); res.status(201).json(await store.topScores(10)); } catch (e) { next(e); }
+});
 app.get("/api/rafiq/stats", async (_req, res, next) => {
   try { res.json({ fiches: kbSize(), sansReponse: await store.countUnanswered(), ai: aiConfigured() }); } catch (e) { next(e); }
 });
