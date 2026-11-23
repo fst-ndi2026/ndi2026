@@ -14,6 +14,8 @@ export type Village = {
   flyTo(id: BuildingId | null): void;
   pulse(kind: "form" | "rafiq"): void;
   rotate(dir: -1 | 1): void;
+  /** Le village danse : graves = les bâtiments sautent, médiums = le flux s'accélère, aigus = les fenêtres flashent. null = arrêt. */
+  dance(b: { bass: number; mid: number; treble: number } | null): void;
   dispose(): void;
 };
 
@@ -250,6 +252,7 @@ export function createVillage(canvas: HTMLCanvasElement, opts: { reducedMotion: 
   let view: VillageView | null = null;
   const cur = { bg: new THREE.Color(SKY.day.bg), top: new THREE.Color(SKY.day.hemiTop), bottom: new THREE.Color(SKY.day.hemiBottom), sun: new THREE.Color(SKY.day.sun), hemi: SKY.day.hemi, sunI: SKY.day.sunI, sunPos: new THREE.Vector3(...SKY.day.sunPos), stars: 0 };
   let pulseT = -1, ringT = -1, hovered: BuildingId | null = null;
+  let groove: { bass: number; mid: number; treble: number } | null = null;
   const tmp = new THREE.Color();
 
   function applyView(v: VillageView) {
@@ -323,12 +326,17 @@ export function createVillage(canvas: HTMLCanvasElement, opts: { reducedMotion: 
     busy ||= Math.abs(want.azimuth - azimuth) > 1e-3 || Math.abs(want.zoom - zoom) > 1e-3 || target.distanceTo(want.target) > 1e-3;
     placeCamera();
     // bâtiments : survol et hauteur de la Sobriété
+    let ix = 0;
     for (const [id, g] of groups) {
       const lift = id === hovered ? 0.25 : 0;
       g.userData.lift += (lift - g.userData.lift) * k;
-      g.position.y = g.userData.lift;
+      // danse : un bâtiment sur deux saute un peu plus haut, pour que le village « ondule »
+      const hop = groove ? groove.bass * (ix++ % 2 ? 0.75 : 0.45) * (motion ? 1 : 0.3) : 0;
+      g.position.y = g.userData.lift + hop;
       busy ||= Math.abs(lift - g.userData.lift) > 1e-3;
     }
+    winMat.color.setScalar(groove ? 1 + groove.treble * 2.5 : 1);
+    busy ||= !!groove;
     const eg = groups.get("sobriete")!;
     if (eg.userData.targetH) {
       const ud = eg.userData;
@@ -345,7 +353,7 @@ export function createVillage(canvas: HTMLCanvasElement, opts: { reducedMotion: 
     let i = 0;
     for (const key of keys) {
       for (let j = 0; j < DOTS; j++) {
-        const u = (((motion ? t : 0) * speed[key] * 4 + j / DOTS) % 1 + 1) % 1;
+        const u = (((motion ? t : 0) * speed[key] * (groove ? 1 + groove.mid * 5 : 1) * 4 + j / DOTS) % 1 + 1) % 1;
         const p = curves[key].getPointAt(u);
         p.y += 0.06;
         dots.setMatrixAt(i++, m4.compose(p, q.identity(), speed[key] === 0 ? new THREE.Vector3(0.6, 0.6, 0.6) : one));
@@ -434,6 +442,7 @@ export function createVillage(canvas: HTMLCanvasElement, opts: { reducedMotion: 
       invalidate();
     },
     rotate(dir) { want.azimuth += (dir * Math.PI) / 4; invalidate(); },
+    dance(b) { groove = b; invalidate(); },
     dispose() {
       cancelAnimationFrame(raf);
       ro.disconnect(); io.disconnect();

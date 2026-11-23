@@ -23,6 +23,7 @@ export default function Layout() {
             <li><NavLink to="/accessibilite">{t("a11y")}</NavLink></li>
             <li><NavLink to="/agir">{t("agir")}</NavLink></li>
             <li><NavLink to="/village">{t("village")}</NavLink></li>
+            <li><NavLink to="/son">{t("son")}</NavLink></li>
             <li><NavLink to="/inscription">{t("signup")}</NavLink></li>
             <li><button type="button" onClick={toggle} lang={t("lang") === "العربية" ? "ar" : "fr"}>{t("lang")}</button></li>
           </ul>
