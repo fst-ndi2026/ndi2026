@@ -16,7 +16,8 @@ export function checkHeaders(page: Headers, api: Headers | null, cookies: string
     { id: "frame", label: "Anti-clickjacking (frame-ancestors)", ok: /frame-ancestors\s+'none'|frame-ancestors\s+'self'/.test(csp) || ["deny", "sameorigin"].includes(has(page, "x-frame-options")) },
     { id: "nosniff", label: "Type MIME verrouillé (nosniff)", ok: has(page, "x-content-type-options") === "nosniff" },
     { id: "referrer", label: "Aucun référent transmis", ok: ["no-referrer", "same-origin", "strict-origin", "strict-origin-when-cross-origin"].includes(ref) },
-    { id: "perms", label: "Caméra, micro, position bloqués", ok: ["camera=()", "microphone=()", "geolocation=()"].every((p) => perms.includes(p)) },
+    // le micro est réservé au site lui-même (page /son, sur demande de l'utilisateur) : jamais aux sites tiers
+    { id: "perms", label: "Caméra et position bloquées, micro réservé au site", ok: ["camera=()", "geolocation=()"].every((p) => perms.includes(p)) && /microphone=\((self)?\)/.test(perms) },
     { id: "isolation", label: "Isolation d'origine (COOP / CORP)", ok: has(page, "cross-origin-opener-policy") === "same-origin" && !!has(page, "cross-origin-resource-policy") },
     { id: "ratelimit", label: "Limitation des requêtes API", ok: !!api && !!(api.get("ratelimit-limit") || api.get("x-ratelimit-limit") || api.get("ratelimit-policy")) },
     { id: "cookies", label: "Aucun cookie, aucun traceur", ok: cookies.trim() === "" },

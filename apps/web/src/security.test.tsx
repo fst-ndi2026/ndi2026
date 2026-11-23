@@ -24,6 +24,12 @@ describe("Vérification des protections", () => {
     expect(c.every((x) => x.ok)).toBe(true);
     expect(grade(c)).toBe("A+");
   });
+  it("micro réservé au site : accepté ; micro ouvert à tous : refusé", () => {
+    const perm = (v: string) => checkHeaders(new Headers({ ...GOOD, "permissions-policy": v }), api, "").find((x) => x.id === "perms")!.ok;
+    expect(perm("camera=(), microphone=(self), geolocation=()")).toBe(true);
+    expect(perm("camera=(), microphone=*, geolocation=()")).toBe(false);
+    expect(perm("camera=(), geolocation=()")).toBe(false);
+  });
   it("détecte une CSP faible et l'absence d'en-têtes", () => {
     const c = checkHeaders(new Headers({ "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline'" }), null, "id=1");
     expect(c.find((x) => x.id === "csp")!.ok).toBe(false);
