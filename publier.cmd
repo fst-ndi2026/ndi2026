@@ -15,4 +15,4 @@ exit /b 0
 echo.
 echo ERREUR : lisez le message ci-dessus et prevenez Claude.
 pause
-exit /b 1
+exit /b 
