@@ -26,4 +26,14 @@ describe("Scores du jeu caché", () => {
     const res = await request(app).get("/api/scores").expect(200);
     expect(res.body.length).toBe(10);
   });
+  it("renvoie le nombre de scores demandé", async () => {
+    const res = await request(app).get("/api/scores?limit=3").expect(200);
+    expect(res.body.length).toBe(3);
+  });
+  it("refuse une limite invalide", async () => {
+    await request(app).get("/api/scores?limit=abc").expect(400);
+    await request(app).get("/api/scores?limit=0").expect(400);
+    await request(app).get("/api/scores?limit=11").expect(400);
+    await request(app).get("/api/scores?limit=2.5").expect(400);
+  });
 });

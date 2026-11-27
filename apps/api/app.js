@@ -111,8 +111,11 @@ app.post("/api/demandes", rateLimit({ windowMs: 60_000, limit: 5 }), async (req,
 
 // Jeu caché : meilleurs scores (3 lettres, aucune donnée personnelle).
 const scoreSchema = z.object({ name: z.string().regex(/^[A-Z]{3}$/), score: z.number().int().min(0).max(100000) });
-app.get("/api/scores", async (_req, res, next) => {
-  try { res.json(await store.topScores(10)); } catch (e) { next(e); }
+const limitSchema = z.object({ limit: z.coerce.number().int().min(1).max(10).default(10) });
+app.get("/api/scores", async (req, res, next) => {
+  const parsed = limitSchema.safeParse(req.query);
+  if (!parsed.success) return res.status(400).json({ error: "invalid_input" });
+  try { res.json(await store.topScores(parsed.data.limit)); } catch (e) { next(e); }
 });
 app.post("/api/scores", rateLimit({ windowMs: 60_000, limit: 10 }), async (req, res, next) => {
   const parsed = scoreSchema.safeParse({ ...req.body, name: String(req.body?.name ?? "").toUpperCase() });
