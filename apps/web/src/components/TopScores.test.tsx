@@ -29,6 +29,6 @@ describe("TopScores", () => {
     it("affiche l'état vide", async () => {
         vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => [] }));
         render(<TopScores />);
-        expect(await screen.findByText(/Aucun élément/)).toBeTruthy();
+        expect(await screen.findByText(/Aucun score/)).toBeTruthy();
     });
 });

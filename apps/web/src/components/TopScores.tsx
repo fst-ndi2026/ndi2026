@@ -19,7 +19,7 @@ export default function TopScores({ limit = 5 }: { limit?: number }) {
 
     return (
         <section className="card" aria-labelledby="top-scores-title">
-            <h2 id="top-scores-title">Meilleurs scores</h2>
+            <h2 id="top-scores-title">{t("topScores")}</h2>
             {status === "loading" && <p aria-busy="true">{t("loading")}</p>}
             {status === "error" && (
                 <div role="alert">
@@ -27,7 +27,7 @@ export default function TopScores({ limit = 5 }: { limit?: number }) {
                     <button type="button" onClick={load}>{t("retry")}</button>
                 </div>
             )}
-            {status === "ready" && scores.length === 0 && <p>{t("empty")}</p>}
+            {status === "ready" && scores.length === 0 && <p>{t("noScores")}</p>}
             {status === "ready" && scores.length > 0 && (
                 <ol>{scores.map((s, i) => <li key={i}><strong>{s.name}</strong> — {s.score}</li>)}</ol>
             )}
