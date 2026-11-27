@@ -41,4 +41,3 @@ MIT (voir `LICENSE`). Ressources tierces et crédits : page `/credits`.
 
 ## Équipe
 À compléter (prénoms et rôles).
-- Abdellahi : développeur front
